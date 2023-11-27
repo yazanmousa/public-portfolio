@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card mt-4 shadow-sm">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h1 style="font-size: 35px;" class="lead mb-4">{{project.name}}</h1>
+              <hr>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 text-center">
+              <img *ngIf="[this.projectsService.projectHasPhoto]" alt="photo" [src]="projectsService.retrievedImage"
+                   class="img-fluid img-responsive mx-auto d-block rounded-circle mb-2">
+              <img *ngIf="![this.projectsService.projectHasPhoto]" alt="photo"
+                   src="https://hook.finance/sites/default/files/user.png"
+                   class="img-fluid img-responsive mx-auto d-block rounded-circle mb-2">
+              <p class="mb-2 text-muted"><span><i class="bi bi-people mr-2"></i></span>Required
+                participants: {{project.requiredParticipants}}</p>
+              <p class="mb-2 text-muted"><span><i class="bi bi-calendar mr-2"></i></span>Date
+                created: {{project.dateCreated | date}}</p>
+              <p class="mb-3 text-muted"><span><i class="bi bi-globe mr-2"></i></span>Country: {{project.country}}</p>
+            </div>
+            <div class="col-md-6 text-center">
+              <h5 class="mt-2">About this project</h5>
+              <div class="scroll">
+                <p>{{project.description}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <h5><span class="bi bi-people"></span> Available members</h5>
+      <label>
+        <input style="width:100%"  type="search" class="form-control"
+                placeholder="&#8981; Start searching for a user by name" [(ngModel)]="searchText">
+      </label>
+      <table class="table text-center shadow-sm" *ngIf="users.length !== 0">
+        <thead class="thead">
+        <tr class="shadow-sm" style="text-decoration: none">
+          <th scope="col">First name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Country</th>
+          <th scope="col">Email</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="table-row" *ngFor="let user of users | userPipe: searchText">
+          <th scope="row">{{ user.firstName }}</th>
+          <td (click)="onSelectUser(user.id, user)">{{user.lastName}}</td>
+          <td (click)="onSelectUser(user.id, user)">{{user.country}}</td>
+          <td>{{user.email}}</td>
+          <td><button  class="btn btn-primary" (click)="sendInvite(user)">Send invite</button></td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="alert alert-success" *ngIf="showAlert">
+        <strong>Success! An invite has been send to {{selectedUser.firstName}} {{selectedUser.lastName}}</strong>
+      </div>
+      <div *ngIf="users.length === 0" class="text-center">
+        <div class="text-center">
+          <h1 class="lead">There are currently no users available.</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-md-12 text-center">
+      <a id="backToProject" [routerLink]="['/profile/my-project', project.id]">Back to project</a>
+    </div>
+  </div>
+</div>

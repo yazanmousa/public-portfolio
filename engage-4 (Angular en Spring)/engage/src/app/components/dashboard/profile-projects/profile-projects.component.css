@@ -1,0 +1,47 @@
+#project-card {
+  transition: box-shadow .3s;
+}
+
+#project-card:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
+
+.btn-success {
+  background-color: #217645;
+  border-color: #217645;
+}
+
+.btn-success:hover {
+  background-color: #045326;
+  border-color: #045326;
+}
+
+.header-and-button {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-img-top {
+  height: 180px;
+}
+
+.btn-primary {
+  border-color: #1068BF;
+  background-color: #1068BF;
+}
+
+.btn-primary:hover {
+  border-color: whitesmoke;
+}
+
+h1 {
+  font-size: 35px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+.card {
+  border-radius: 10px;
+}

@@ -1,0 +1,31 @@
+<div class="card mt-4 mb-4 shadow-sm" style="min-height: 800px">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 style="font-weight: normal">Latest Updates</h1>
+        <p class="lead">Find out what's going on</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn btn-secondary float-right" (click)="onClickClearAll()">Clear all</button>
+      </div>
+    </div>
+    <hr>
+    <div *ngIf="userUpdates === null || userUpdates.length === 0" class="alert alert-dark">
+      <h3 class="lead"><span><i class="bi-emoji-frown mr-2"></i></span>Wow such empty!</h3>
+    </div>
+    <div class="scroll">
+      <ul class="list-group">
+        <li [@deleteUpdate] class="list-group-item d-flex justify-content-between mb-1 mr-3" *ngFor="let userUpdate of userUpdates">
+          <div class="flex-column mb-auto mt-auto"><span><i class="bi-clock mr-2"></i></span><b>{{userUpdate.time | date: 'shortTime'}}</b> - {{userUpdate.title}}</div>
+          <div><a class="btn btn-outline-dark" (click)="onDeleteUpdate(userUpdate)">X</a></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+

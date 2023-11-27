@@ -1,0 +1,32 @@
+.jumbotron {
+  background-image: url("src/assets/images/city-skyline-daytime.jpg");
+  background-size: cover;
+  height: 100%;
+}
+
+#second-row {
+  margin-top: 75px;
+}
+
+p {
+  font-size: 20px;
+}
+
+.img-fluid {
+  width: 75%;
+  margin: 20px;
+}
+
+#img-column {
+  text-align: center;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+
+
+
+
+

@@ -1,0 +1,39 @@
+<div class="card mt-4 mb-4 shadow-sm">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="header-and-button">
+          <h1 style="font-weight: normal">My Projects</h1>
+          <button class="btn btn-success btn-lg" routerLink="/profile/create-project">Create new project</button>
+        </div>
+        <hr>
+        <div *ngIf="projects.length > 0" class="row text-center">
+          <div id="project-card" class="card m-2 ml-auto mr-auto mb-3" style="width: 18rem;" *ngFor="let project of projects">
+<!--            <img *ngIf="hasFakePath(project)" class="card-img-top" [src]="getCorrectPath(project)" alt="Card image cap">-->
+<!--            <img *ngIf="!hasFakePath(project)" class="card-img-top" [src]="project.imageSource" alt="Card image cap">-->
+
+<!--            <img *ngIf="[this.projectsService.projectHasPhoto]" alt="photo" [src]="projectsService.retrievedImage"-->
+<!--                 class="img-fluid img-responsive mx-auto d-block rounded-circle">-->
+<!--            <img *ngIf="![this.projectsService.projectHasPhoto]" alt="photo" src="https://hook.finance/sites/default/files/user.png"-->
+<!--                 class="img-fluid img-responsive mx-auto d-block rounded-circle">-->
+            <div class="card-body">
+              <h5 class="card-title">{{project.name}}</h5>
+              <p style="font-size: 11px" class="text-muted">{{project.dateCreated | date}}</p>
+              <hr>
+              <p class="card-text text-muted"><span class="mr-1"><i style="font-weight: bold" class="bi bi-person-fill"></i></span>Owner: {{getOwnerForProject(project).firstName}} {{getOwnerForProject(project).lastName}}</p>
+              <p class="card-text text-muted"><span class="mr-1"><i style="font-weight: bold" class="bi bi-compass-fill"></i></span>Role: {{getProjectRoleForUser(loggedInUser.id, project.id)}}</p>
+              <hr>
+              <button class="btn btn-primary w-100" (click)="onClickToProject(project.id)" >See project</button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="projects.length === 0" class="row">
+          <div class="alert alert-">
+            <h1 class="lead">You do not have any projects.</h1>
+            <h2 class="lead">Click on create project to create a project.</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

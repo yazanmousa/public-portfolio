@@ -1,0 +1,26 @@
+.table {
+  border: 1px solid #E7E7E7;
+}
+
+.thead {
+  background-color: grey;
+  color: white;
+}
+
+.active-item {
+  background-color: #ECECEC;
+  text-decoration: underline;
+}
+
+#table-row {
+  cursor: pointer;
+  background-color: white;
+}
+
+.btn-primary {
+  background-color: #1068BF;
+}
+
+tr:hover {
+  text-decoration: underline;
+}

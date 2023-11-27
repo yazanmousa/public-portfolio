@@ -1,0 +1,42 @@
+.container {
+  margin-top: 20px;
+}
+
+#joined-row {
+  margin-top: 100px;
+}
+
+h4 {
+  margin-bottom: 30px;
+}
+
+#page-header-container {
+  margin-bottom: 50px;
+}
+
+#create-project-button {
+  margin-top: 7px;
+  background-color: #217645;
+  border-color: #217645;
+}
+
+#create-company-button {
+  margin-top: 7px;
+  background-color: #217645;
+  border-color: #217645;
+}
+
+#create-project-button:hover {
+  background-color: #045326;
+  border-color: #045326;
+}
+
+#create-company-button:hover {
+  background-color: #045326;
+  border-color: #045326;
+}
+
+hr {
+  position: relative;
+  top: -5px;
+}

@@ -1,0 +1,42 @@
+h1{
+  color: #292961;
+}
+
+.buttons{
+  float: right;
+  display:inline-block;
+}
+
+.table-hover:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.table {
+  border: 1px solid #E7E7E7;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.toProject:hover {
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #1068BF;
+  width: 48%;
+  transition: box-shadow .3s, background-color .3s;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+
+.btn-primary:hover {
+  background-color: #004C96;
+}
+
+.btn-secondary {
+  width: 48%;
+  border-radius: 6px;
+}

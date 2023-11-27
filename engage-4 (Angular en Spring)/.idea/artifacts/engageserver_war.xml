@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="engageserver:war">
+    <output-path>$PROJECT_DIR$/engageserver/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>engageserver</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="engageserver-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="engageserver:war exploded" />
+    </root>
+  </artifact>
+</component>

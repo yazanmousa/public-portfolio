@@ -1,0 +1,41 @@
+.btn-primary {
+  background-color: #1068BF;
+}
+
+.text-muted {
+  color: red !important;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.scroll {
+  height: 250px;
+  overflow: auto;
+
+}
+
+.btn-primary {
+  background-color: #1068BF;
+}
+
+.attributes-formarray {
+  margin-top: 24px;
+}
+
+textarea.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+a {
+  cursor: pointer;
+}
+
+a:hover {
+  font-weight: bold;
+}
+
+.card {
+  border-radius: 10px;
+}

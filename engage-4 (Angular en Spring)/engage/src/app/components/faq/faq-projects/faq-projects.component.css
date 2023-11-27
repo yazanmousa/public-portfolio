@@ -1,0 +1,29 @@
+.card-header:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.card-header {
+    background-color: transparent;
+    border: none;
+    color: #292961;
+}
+
+a {
+    font-size: 16px;
+    color: #292961;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.inline-link {
+    color: black;
+    font-weight: bold;
+}
+
+.inline-link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

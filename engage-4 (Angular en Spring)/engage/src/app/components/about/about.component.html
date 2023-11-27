@@ -1,0 +1,59 @@
+<div class="jumbotron">
+  <div class="container">
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <div [@showContent] class="card shadow-lg">
+          <div class="card-body">
+            <h1 class="display-4">Welcome to engage!</h1>
+            <h4 class="lead">Do you want to find a project to work in? Or maybe even create your own project
+            that you want to expose to the public?</h4>
+            <hr class="my-4">
+            <button id="register-button"
+              *ngIf="loggedInUser === null"
+              [@enlargeItem]="state"
+              (mouseleave)="onHoverRegister()"
+              (mouseenter)="onHoverRegister()"
+              routerLink="/register"
+              class="btn btn-dark btn-lg shadow-sm"
+            >Register here</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="second-row" class="row">
+      <div class="col-md-12">
+        <div [@showContent] class="card shadow-lg">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <h2>About the site</h2>
+                <p class="lead">This site is about stakeholders who want to collaborate with a certain project.
+                  If you already have a project you can put it on the site and see who's interested in participating with that
+                  project.
+                  If you feel like it appeals to you in any way, Register <a routerLink="/register">here</a> to enjoy all
+                  functionalities!
+                  Also when registered, don't forget to log in!
+                </p>
+              </div>
+              <div class="col-md-6">
+                <h2>Diagram</h2>
+                <p class="lead">This website makes use of the diagram shown below. With this diagram,
+                  a project owner can manage all the stakeholders of his/her project. This way it becomes easy to
+                  see who is involved in your project and what their 'level of engagement' is.
+                  The project host then has a clear overview of all the stakeholders in his project</p>
+              </div>
+            </div>
+            <div class="row">
+              <div id="img-column" class="col-md-12">
+                <hr>
+                <img class="img-fluid" src="assets/images/diagrammetje.png" alt="Image could not be loaded">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,59 @@
+<div class="container" *ngIf="loggedInUser !== null">
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <ul class="nav nav-pills" id="pills-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['latest-updates', loggedInUser.id]">Latest
+                updates<span id="amount-of-updates" *ngIf="amountOfUpdates !== 0" class="ml-2 badge badge-primary">{{amountOfUpdates}}</span></a>
+            </li>
+            <li class="nav-item" *ngIf="hasOrganisation()">
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['my-projects', loggedInUser.id]">My
+                projects</a>
+            </li>
+            <li class="nav-item" *ngIf="!hasOrganisation()">
+              <a class="nav-link" [routerLink]="['create-organisation-prompt']">My
+                projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['my-information', loggedInUser.id]">My
+                information</a>
+            </li>
+            <li class="nav-item">
+              <a *ngIf="hasOrganisation()" class="nav-link" routerLinkActive="active"
+                 [routerLink]="['my-organisation', organisationMember.organisation.id]">
+                My organisation
+                <span *ngIf="amountOfOrganisationRequests !== 0" class="ml-2 badge badge-primary">{{amountOfOrganisationRequests}}</span>
+              </a>
+              <a *ngIf="!hasOrganisation()" class="nav-link" routerLinkActive="active"
+                 [routerLink]="['create-organisation-prompt']">
+                My organisation
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['view-invites']">My
+                invitations
+                <span *ngIf="amountOfInvites !== 0" class="ml-2 badge badge-primary">{{amountOfInvites}}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <div *ngIf="router.url === '/profile'" class="row mt-4 shadow-sm">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="alert alert-">
+            <h1 class="lead">Welcome to your profile, {{loggedInUser.firstName}}</h1>
+            <h2 class="lead">Select one of the options above to get started</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

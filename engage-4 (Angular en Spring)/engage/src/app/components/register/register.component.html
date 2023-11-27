@@ -1,0 +1,141 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <h1 class=" mt-5">Register</h1>
+
+              <label for="firstName">
+                First name
+              </label>
+              <input type="text"
+                     class="form-control"
+                     id="firstName"
+                     name="firstName"
+                     formControlName="firstName"
+                     placeholder="First name">
+              <div *ngIf="!registerForm.get('firstName').valid && registerForm.get('firstName').touched">
+                <p class="text-muted" *ngIf="registerForm.get('firstName').errors['required']">
+                  Enter a first name!
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="lastName">
+                Last name
+              </label>
+              <input type="text"
+                     class="form-control"
+                     id="lastName"
+                     name="lastName"
+                     formControlName="lastName"
+                     placeholder="Last name">
+              <div *ngIf="!registerForm.get('lastName').valid && registerForm.get('lastName').touched">
+                <p class="text-muted" *ngIf="registerForm.get('lastName').errors['required']">
+                  Enter a last name!
+                </p>
+              </div>
+
+            </div>
+            <div class="form-group">
+              <label for="birthDate">
+                Birth date
+              </label>
+              <input type="date"
+                     class="form-control"
+                     id="birthDate"
+                     name="birthDate"
+                     formControlName="birthDate">
+              <div *ngIf="!registerForm.get('birthDate').valid && registerForm.get('birthDate').touched">
+                <p class="text-muted" *ngIf="registerForm.get('birthDate').errors['required']">
+                  Enter a birth date!
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+
+              <label for="emailAddress">
+                Email address
+              </label>
+              <input type="email"
+                     class="form-control"
+                     id="emailAddress"
+                     name="emailAddress"
+                     formControlName="emailAddress"
+                     placeholder="Email address">
+              <div *ngIf="!registerForm.get('emailAddress').valid && registerForm.get('emailAddress').touched">
+                <p class="text-muted" *ngIf="registerForm.get('emailAddress').errors['required']">
+                  Enter an email address!
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+
+              <label for="country">
+                Country
+              </label>
+              <input type="text"
+                     class="form-control"
+                     id="country"
+                     name="country"
+                     formControlName="country"
+                     placeholder="country">
+              <div *ngIf="!registerForm.get('country').valid && registerForm.get('country').touched">
+                <p class="text-muted" *ngIf="registerForm.get('country').errors['required']">
+                  Enter a country!
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+
+              <label for="password">
+                Password
+              </label>
+              <input type="password"
+                     class="form-control"
+                     id="password"
+                     name="password"
+                     formControlName="password"
+                     placeholder="Password">
+              <div *ngIf="!registerForm.get('password').valid && registerForm.get('password').touched">
+                <p class="text-muted" *ngIf="registerForm.get('password').errors['required']">
+                  Enter a password!
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="passwordRepeat">
+                Repeat password
+              </label>
+              <input type="password"
+                     class="form-control mb-4"
+                     id="passwordRepeat"
+                     name="passwordRepeat"
+                     formControlName="passwordRepeat"
+                     placeholder="Repeat password">
+              <div *ngIf="!registerForm.get('passwordRepeat').valid && registerForm.get('passwordRepeat').touched">
+                <p class="text-muted" *ngIf="registerForm.get('passwordRepeat').errors['required']">
+                  Repeat your password!
+                </p>
+              </div>
+              <div *ngIf="error">
+                <p class="text-muted">{{errorText}}</p>
+              </div>
+            </div>
+            <div class="form-group">
+            </div>
+            <button style="width: 100%" type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">
+              Register
+            </button>
+          </form>
+        </div>
+        <div class="col-md-4">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

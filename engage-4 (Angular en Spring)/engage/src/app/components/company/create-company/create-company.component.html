@@ -1,0 +1,151 @@
+<div class="row mt-4">
+  <div class="col-md-12">
+    <div class="card shadow-sm">
+      <div class="card-header">
+        <h2>{{ editOrganisation === null ? 'Create an organisation!' : 'Update your organisation' }}</h2>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+
+                <label for="inputNameOrganisation">Organisation Name:</label>
+                <input type="text"
+                       class="form-control"
+                       id="inputNameOrganisation"
+                       formControlName="inputNameOrganisation"
+                       placeholder="Organisation name">
+                <div *ngIf="!form.get('inputNameOrganisation').valid && form.get('inputNameOrganisation').touched">
+                  <p class="text-muted" *ngIf="form.get('inputNameOrganisation').errors['required']">
+                    Enter your organisation name!
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="organisationCountry">Country:</label>
+                <input type="text"
+                       class="form-control"
+                       id="organisationCountry"
+                       formControlName="organisationCountry"
+                       placeholder="Country">
+                <div *ngIf="!form.get('organisationCountry').valid && form.get('organisationCountry').touched">
+                  <p class="text-muted" *ngIf="form.get('organisationCountry').errors['required']">
+                    Enter a country!
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="description">Description of your organisation</label>
+                <textarea type="text"
+                          class="form-control"
+                          id="description" rows="10"
+                          formControlName="description"
+                          placeholder="Description of the organisation"></textarea>
+                <div *ngIf="!form.get('description').valid && form.get('description').touched">
+                  <p class="text-muted" *ngIf="form.get('description').errors['required']">
+                    Enter a description!
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email">E-mail of the organistation:</label>
+                <input type="text"
+                       class="form-control"
+                       id="email"
+                       formControlName="email"
+                       placeholder="E-mail">
+                <div *ngIf="!form.get('email').valid && form.get('email').touched">
+                  <p class="text-muted" *ngIf="form.get('email').errors['required']">
+                    Enter an e-mail!
+                  </p>
+                </div>
+              </div>
+              <div>
+                <label class="form-label" for="photo">Photo of the organisation</label>
+                <input type="file"
+                       class="form-control"
+                       formControlName="photo"
+                       id="photo"
+                       (change)="onFileChanged($event)">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 d-flex justify-content-between">
+              <div>
+                <div class="row ml-1">
+                  <button id="submit-button" (click)="onSubmit()" [disabled]="form.invalid || loading" class="btn btn-dark">{{ editOrganisation === null ? 'Submit' : 'Save changes' }}</button>
+                </div>
+              </div>
+              <div>
+                <button *ngIf="isOwner()" class="btn btn-secondary text-center" (click)="onClickChangeRoles()">Specify member roles</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div [@showContent] class="row mt-4" *ngIf="changeRoles">
+  <div class="col-md-6">
+
+  </div>
+  <div class="col-md-6">
+    <div class="card shadow-sm mb-4">
+      <div class="card-header">
+        <h4 style="font-weight: normal">Edit/Delete members</h4>
+      </div>
+      <div class="card-body">
+        <div class="search mb-3">
+          <input type="search" class="form-control w-50" placeholder="Search by name..." [(ngModel)]="searchText">
+        </div>
+        <div class="scroll">
+          <div class="list-group">
+            <div *ngIf="ownerError" class="alert alert-danger" role="alert">
+              <div class="d-flex justify-content-between">
+                <span class="mt-auto mb-auto">You are the owner of this organisation!</span>
+                <a class="btn btn-outline-danger btn-sm" style="border: none;" (click)="onClickDismiss()">X</a>
+              </div>
+            </div>
+            <div [@deleteMember] class="list-group-item" (click)="onSelectMember(member)" [ngClass]="{'active': member === selectedMember}"
+                 *ngFor="let member of editOrganisationMembers | organisationMemberPipe: searchText">
+              <div class="d-flex justify-content-between">
+                <div class="mt-auto mb-auto" >
+                  <span style="font-size: 20px;"><i class="bi-person mt-2 mr-2"></i></span>
+                  <span class="mt-2" style="font-size: 17px;">{{member.user.firstName}} {{member.user.lastName}} {{member.owner ? '(owner)' : ''}}</span>
+                </div>
+                <button *ngIf="!member.administrator" style="width: 30%" class="btn btn-secondary" (click)="onClickMember(member)">Member</button>
+                <button *ngIf="member.administrator" style="width: 30%" class="btn btn-info" (click)=onClickAdministrator(member)>Administrator</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button *ngIf="selectedMember !== null && selectedMember.owner === false" class="btn btn-danger" style="width: 240px; margin-right: 18px;"
+                (click)="onClickDeleteMember()"><span><i class="bi-trash mr-2"></i></span>Remove member
+        </button>
+        <button *ngIf="selectedMember !== null" class="btn btn-secondary" style="width: 240px" (click)="onClickCancel()">Cancel</button>
+        <hr>
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <button class="btn btn-dark w-50" (click)="onClickDone()">Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-md-12 text-center">
+    <a id="delete-organisation" [hidden]="editOrganisation === null" (click)="onClickDeleteOrganisation()">Delete organisation</a>
+  </div>
+</div>
+<div class="row-mt-2">
+  <div class="col-md-12 text-center">
+    <div *ngIf="loading" class="spinner-border ml-2"></div>
+  </div>
+</div>

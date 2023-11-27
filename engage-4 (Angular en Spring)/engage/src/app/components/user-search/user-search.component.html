@@ -1,0 +1,65 @@
+<div class="content">
+  <div class="header text-center">
+    <h1>Search for stakeholders</h1>
+    <hr>
+  </div>
+  <div class="container">
+    <div class="search">
+        <input type="search" class="form-control"
+               placeholder="&#8981; Start searching for a stakeholder by name" [(ngModel)]="searchText">
+    </div>
+    <div class="custom-control custom-switch" *ngIf="users.length !== 0">
+      <input type="checkbox" class="custom-control-input" id="customSwitches" (click)="switchView()">
+      <label class="custom-control-label" for="customSwitches">Switch view</label>
+    </div>
+    <hr/>
+    <div class="projects">
+      <div class="row" *ngIf="view === true">
+        <div class="column" *ngFor="let x of users" >
+          <div class="card">
+            <div class="name"><h4><b>{{x.firstName}}</b>&nbsp;<b>{{x.lastName}}</b></h4>
+            </div>
+<!--            <img *ngIf="isFakePath(x.imagePath, x)"-->
+<!--                 class="img-fluid rounded mx-auto d-block project-image rounded-circle" alt="Responsive image"-->
+<!--                 [src]="getCorrectPath(x.imagePath, x)">-->
+<!--            <img *ngIf="!isFakePath(x.imagePath, x)"-->
+<!--                 class="img-fluid rounded mx-auto d-block project-image rounded-circle" alt="Responsive image"-->
+<!--                 [src]="x.imagePath">-->
+            <hr>
+            <p><b>Email:</b></p>
+              <p>{{x.email}}</p>
+            <hr>
+            <p><span><i class="bi bi-globe mr-2"></i></span>{{x.country}}</p>
+            <hr>
+            <button class="btn btn-primary" (click)="onClickToUser(x.id)">To user ></button>
+          </div>
+        </div>
+      </div>
+      <div class="div" *ngIf="view === false">
+        <table class="table text-center shadow-sm">
+          <thead class="thead">
+          <tr class="shadow-sm" style="text-decoration: none">
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="table-row" *ngFor="let user of users | userPipe: searchText">
+            <th scope="row">{{ user.id }}</th>
+            <td (click)="onSelectUser(user.id, user)">{{user.firstName}}</td>
+            <td (click)="onSelectUser(user.id, user)">{{user.lastName}}</td>
+            <td>{{user.email}}</td>
+            <td><button  class="btn btn-primary" (click)="onSelectUser(user.id , user)">Go to user</button></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="noUsers text-center" *ngIf="users.length === 0">
+    <h1>There are currently no users to invite!</h1>
+  </div>
+</div>

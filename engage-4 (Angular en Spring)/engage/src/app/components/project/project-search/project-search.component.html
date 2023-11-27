@@ -1,0 +1,65 @@
+<div class="content">
+  <div class="header text-center">
+    <h1>Search for projects</h1>
+    <hr>
+  </div>
+  <div class="container">
+    <div class="search">
+      <input type="search" class="form-control"
+             placeholder="&#8981; Start searching for a project by name" [(ngModel)]="searchText">
+    </div>
+    <div class="custom-control custom-switch mt-auto" *ngIf="projects.length !== 0">
+      <input type="checkbox" class="custom-control-input" id="customSwitches" (click)="switchView()">
+      <label class="custom-control-label" for="customSwitches">Switch view</label>
+    </div>
+    <hr/>
+    <div class="projects">
+      <div class="row mb-5" *ngIf="view === true">
+        <div class="column" *ngFor="let project of projects | projectFilter: searchText">
+          <div class="card">
+            <h4><b>{{project.name}}</b></h4>
+<!--            <img class="img-fluid" *ngIf="hasFakePath(project)" [src]="getCorrectPath(project)"-->
+<!--                 alt="Image could not be loaded">-->
+<!--            <img class="img-fluid" *ngIf="!hasFakePath(project)" [src]="project.imageSource"-->
+<!--                 alt="Image could not be loaded">-->
+            <hr>
+            <p><b>Member count:</b> {{getMemberCountForProject(project.id)}}</p>
+            <hr>
+            <p><span><i class="bi bi-globe mr-2"></i></span>{{project.country}}</p>
+            <hr>
+            <button class="btn btn-primary mt-auto" (click)="onClickToProject(project.id)">To project ></button>
+          </div>
+        </div>
+
+      </div>
+      <div class="div" *ngIf="view === false">
+        <table class="table text-center shadow-sm">
+          <thead class="thead">
+          <tr class="shadow-sm" style="text-decoration: none">
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Country</th>
+            <th scope="col">Date Created</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="table-row" *ngFor="let project of projects | userPipe: searchText">
+            <th scope="row">{{ project.id }}</th>
+            <td>{{project.name}}</td>
+            <td>{{project.country}}</td>
+            <td>{{project.dateCreated}}</td>
+            <td><button  class="btn btn-primary" (click)="onClickToProject(project.id)">Go to project</button></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="projects.length === 0" class="row">
+    <div class="noProjects">
+      <h1 class="lead">There are currently no projects available to join.</h1>
+      <h2 class="lead">Click on create project to create a project.</h2>
+      <button *ngIf="userIsAlreadyPartOfOrganisation()"  class="btn btn-success" routerLink="/profile/create-project">Create project</button>
+    </div>
+  </div>
+</div>

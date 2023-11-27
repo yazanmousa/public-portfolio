@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div id="main-card" class="card shadow-sm">
+        <div id="page-header" class="card-header text-center">
+          <h1 style="font-weight: normal; font-size: 30px;" class="lead">Frequently Asked Questions</h1>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="list-group">
+                <a routerLinkActive="active" routerLink="/faq/profile" class="list-group-item"><span><i class="bi-person mr-1"></i></span>Profile</a>
+                <a routerLinkActive="active" routerLink="/faq/projects" class="list-group-item"><span><i class="bi-tools mr-1"></i></span>Projects</a>
+                <a routerLinkActive="active" routerLink="/faq/organisations" class="list-group-item"><span><i class="bi-building mr-1"></i></span>Organisations</a>
+                <a routerLinkActive="active" routerLink="/faq/diagram" class="list-group-item"><span><i class="bi-globe mr-1"></i></span>Diagram</a>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div *ngIf="router.url === '/faq'" class="action-prompt mt-2">
+                <p style="font-size: 18px">
+                  Questions always go hand in hand with new experiences. If you have any question about any feature of
+                  this website, please <b>select a topic on the left</b> to find answers that have already been given.
+                </p>
+                <i style="font-size: 30px;" class="bi-arrow-left "></i>
+              </div>
+              <router-outlet></router-outlet>
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

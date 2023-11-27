@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card mt-4 mb-4 shadow-sm">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h1 style="font-size: 35px;" class="lead mb-4">{{user.firstName}} {{user.lastName}}</h1>
+              <hr>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 text-center">
+              <div *ngIf="user.imagePath != null; else noPhoto">
+                <img *ngIf="[this.userService.userHasPhoto]" alt="Image could not be loaded" [src]="userService.retrievedImage"
+                     class="img-fluid img-responsive mx-auto d-block rounded-circle mb-2">
+                <img *ngIf="![this.userService.userHasPhoto]" alt="Image could not be loaded"
+                     src="https://hook.finance/sites/default/files/user.png"
+                     class="img-fluid img-responsive mx-auto d-block rounded-circle mb-2">
+              </div>
+              <p class="mb-2 text-muted"><span><i class="bi bi-mailbox mr-2"></i></span><b>Email:</b> {{ user.email }}</p>
+              <p class="mb-2 text-muted"><span><i class="bi bi-calendar mr-2"></i></span><b>Birthdate:</b> {{ user.birthDate | date }}</p>
+              <p class="mb-2 text-muted"><span><i class="bi bi-globe mr-2"></i></span><b>Country:</b> {{ user.country }}</p>
+            </div>
+            <div class="col-md-6 text-center">
+              <h5>About me</h5>
+              <div class="scroll">
+                <p class="mr-3">{{user.description}}</p>
+              </div>
+              <hr>
+              <button *ngIf="isLoggedInUser" type="button" class="btn btn-secondary"
+                      (click)="toEditProfile()"><span class="lead">Edit profile</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-profile-reviews></app-profile-reviews>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<ng-template #noPhoto><h3>No photo is added</h3></ng-template>
+

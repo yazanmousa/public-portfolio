@@ -1,0 +1,46 @@
+.btn-outline-dark {
+  border: none;
+}
+
+h3 {
+  font-size: 25px;
+}
+
+.list-group {
+  border-radius: 10px;
+}
+
+.list-group-item {
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.scroll {
+  height: 700px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+

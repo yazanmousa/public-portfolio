@@ -1,0 +1,251 @@
+<div class="row mt-4">
+  <div class="col-md-12">
+    <div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-header">
+        <h2>{{ projectToEdit === null ? 'Create project' : 'Edit project' }}</h2>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="inputName">Project Name:</label>
+                <input type="text"
+                       class="form-control"
+                       id="inputName"
+                       formControlName="inputName"
+                       placeholder="Project name">
+                <div *ngIf="!form.get('inputName').valid && form.get('inputName').touched">
+                  <p class="text-muted" *ngIf="form.get('inputName').errors['required']">
+                    Enter a valid project name!
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="country">Country:</label>
+                <input type="text"
+                       class="form-control"
+                       id="country"
+                       formControlName="country"
+                       placeholder="Country">
+                <div *ngIf="!form.get('country').valid && form.get('country').touched">
+                  <p class="text-muted" *ngIf="form.get('country').errors['required']">
+                    Enter a valid country!
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="description">Description of the project</label>
+                <textarea type="text"
+                          class="form-control"
+                          id="description" rows="10"
+                          formControlName="description"
+                          placeholder="Description of the project"></textarea>
+                <div *ngIf="!form.get('description').valid && form.get('description').touched">
+                  <p class="text-muted" *ngIf="form.get('description').errors['required']">
+                    Enter a valid description!
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="picture">Picture of the project</label>
+                <input type="file"
+                       class="form-control"
+                       formControlName="picture"
+                       id="picture"
+                       (change)="onFileChanged($event)">
+                <div *ngIf="!form.get('picture').valid && form.get('picture').touched">
+                  <p class="text-muted" *ngIf="form.get('picture').errors['required']">
+                    No picture was selected
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="membersRequired">Amount of members required</label>
+                <input type="number"
+                       class="form-control"
+                       formControlName="membersRequired"
+                       id="membersRequired"
+                       placeholder="0"
+                      min="0">
+                <div *ngIf="!form.get('membersRequired').valid && form.get('membersRequired').touched">
+                  <p class="text-muted" *ngIf="form.get('membersRequired').errors['required']">
+                    Please enter your desired amount of members
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-12">
+              <button *ngIf="isOwner()" class="lead btn btn-dark float-right ml-2" (click)="onClickEditMembers()">Edit/Remove members<span><i class="bi bi-arrow-down ml-2"></i></span></button>
+              <button id="addOrganisationsButton" class="lead btn btn-dark float-right" (click)="onClickAddOrganisations()">Add/Edit organisations<span><i class="bi bi-arrow-down ml-2"></i></span></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div [@showContent] *ngIf="addEngagedOrganisation" class="row mt-4">
+  <div class="col-md-12">
+    <div class="card shadow-lg">
+      <div class="card-header" style="display: flex; justify-content: space-between">
+        <h5 class="lead mt-2">Add organisation!</h5>
+        <button class="btn btn-outline-danger" (click)="onCloseOrganisation()"><span style="font-size: 20px"><i class="bi bi-x"></i></span></button>
+      </div>
+      <div id="organisation-card" class="card-body">
+        <div class="row">
+
+          <div class="col-md-6">
+            <h5 class="lead mb-3">Find organisation</h5>
+            <div class="search mb-3">
+              <input id="organisationSearch" type="search" class="form-control" placeholder="Search..." [(ngModel)]="searchText">
+            </div>
+            <div class="scroll mb-2">
+              <div class="list-group">
+                <a class="list-group-item"
+                   *ngFor="let organisation of organisations | organisationFilter: searchText"
+                   (click)="onSelectNewOrganisation(organisation)"
+                   style="cursor:pointer"
+                   [ngClass]="{'active': organisation === selectedNewOrganisation}">
+                  {{organisationAlreadyEngaged(organisation) ? organisation.name + ' (engaged)' : organisation.name}}
+                </a>
+              </div>
+            </div>
+            <form *ngIf="selectedNewOrganisation !== null" [formGroup]="organisationForm"
+                  (ngSubmit)="onAddOrganisation()">
+              <div class="form-group">
+                <label for="engagementLevel">What is the level of engagement?</label>
+                <select id="engagementLevel" class="form-control" formControlName="engagementLevel">
+                  <option value="1">1 - Core Workgroup</option>
+                  <option value="2">2 - Partner</option>
+                  <option value="3">3 - Prospect</option>
+                  <option value="4">4 - Influencer</option>
+                </select>
+                <div *ngIf="!organisationForm.get('engagementLevel').valid && organisationForm.get('engagementLevel').touched">
+                  <p class="text-muted" *ngIf="organisationForm.get('engagementLevel').errors['required']">
+                    Please select a level of engagement!
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="category">What is the category?</label>
+                <select id="category" class="form-control" [(ngModel)]="selectedCategory" [ngModelOptions]="{standalone: true}">
+                  <option *ngFor="let category of categoriesEnum">{{category}}</option>
+                </select>
+              </div>
+              <button class="btn btn-secondary btn-sm mr-1" (click)="onCancelAddOrganisation()">Cancel</button>
+              <button [disabled]="!organisationForm.valid || selectedCategory === ''" class="btn btn-info btn-sm" type="submit"><span><i
+                      class="bi bi-plus"></i></span>{{organisationAlreadyEngaged(selectedNewOrganisation) ? 'Update organisation' : 'Add organisation'}}
+              </button>
+            </form>
+          </div>
+
+          <div class="col-md-6">
+            <h5 class="lead">Engaged organisations:</h5>
+            <div *ngIf="engagedOrganisations !== []">
+              <div id="scrollExistingOrganisations" class="scroll">
+                <div class="list-group">
+                  <a id="engaged-organisation" [@delete] [ngClass]="{'toDelete': engagedOrganisation === selectedEngagedOrganisation}"
+                     (click)="onSelectEngagedOrganisation(engagedOrganisation)" style="cursor:pointer;"
+                     *ngFor="let engagedOrganisation of engagedOrganisations" class="list-group-item">
+                    <p style="vertical-align: middle" class="mt-auto mb-auto">{{engagedOrganisation.organisation.name}} ({{engagedOrganisation.category}})
+                    <span class="float-right" style="font-weight: bold"><i style="font-size:18px" class="bi bi-bar-chart mr-1"></i>{{engagedOrganisation.engagementLevel}}</span>
+                    </p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <hr>
+          <button style="width: 25%" class="btn btn-dark mb-2" (click)="onClickDone()">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div [@showContent] *ngIf="editMembers" class="row mt-4">
+  <div class="col-md-6"></div>
+  <div class="col-md-6">
+    <div class="card shadow-sm mb-4">
+      <div class="card-header">
+        <h4 style="font-weight: normal">Edit/Delete members</h4>
+      </div>
+      <div class="card-body">
+        <div class="search mb-3">
+          <input type="search" class="form-control w-50" placeholder="Search by name..." [(ngModel)]="searchText">
+        </div>
+        <div class="scroll">
+          <div class="list-group">
+            <div [@delete] class="list-group-item" (click)="onSelectMember(member)" [ngClass]="{'active': member === selectedMember}"
+                 *ngFor="let member of projectToEditMembers">
+              <div class="d-flex justify-content-between">
+                <div class="mt-auto mb-auto">
+                  <span style="font-size: 20px;"><i class="bi-person mt-2 mr-2"></i></span>
+                  <span class="mt-2" style="font-size: 17px;">{{member.user.firstName}} {{member.user.lastName}} {{member.owner ? '(owner)' : ''}}</span>
+                </div>
+                <div class="mt-auto mb-auto">
+                  <span class="mr-1">{{member.role === 'PROJECT_MANAGER' ? 'pm' : 'ps'}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="selectedMember !== null" class="row mt-2">
+          <div class="col-md-12">
+            <form *ngIf="!selectedMember.owner" [formGroup]="roleForm" (ngSubmit)="onClickConfirm()">
+              <div class="form-group mb-4">
+                <label for="role">Change role:</label>
+                <select id="role" class="form-control" formControlName="role">
+                  <option value="1">Project Manager</option>
+                  <option value="2">Project Staff</option>
+                </select>
+                <button (click)="onClickConfirm()" class="btn btn-info btn-sm mt-1">Confirm</button>
+              </div>
+            </form>
+            <button *ngIf="!selectedMember.owner" (click)="onClickRemoveMember()" class="btn btn-danger w-100"><span><i class="bi-trash mr-2"></i></span>Remove member</button>
+            <button (click)="onClickCancel()" class="btn btn-secondary w-100 mt-1">Cancel</button>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <button class="btn btn-dark w-50" (click)="onClickDone()">Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row mt-5">
+  <div class="col-md-12 text-center">
+    <button style="width: 30%" [disabled]="!form.valid || !organisationForm.valid && addEngagedOrganisation || editMembers"
+            (click)="onSubmit()" class="btn btn-success btn-lg">
+      {{ projectToEdit === null ? 'Create project!' : 'Save changes' }}
+    </button>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-md-12 text-center">
+    <a id="delete-project" [hidden]="projectToEdit === null" (click)="deleteProject()">Delete project</a>
+  </div>
+</div>
+<div class="row-mt-2">
+  <div class="col-md-12 text-center">
+    <div *ngIf="loading" class="spinner-border ml-2"></div>
+  </div>
+</div>
+
+
+

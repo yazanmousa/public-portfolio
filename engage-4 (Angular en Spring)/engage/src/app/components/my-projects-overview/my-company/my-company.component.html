@@ -1,0 +1,22 @@
+<h4 *ngIf="!hasMultipleOrganisations">Organisation</h4>
+<h4 *ngIf="hasMultipleOrganisations">Organisations</h4>
+<table class="table text-center shadow-sm">
+  <thead class="thead">
+  <tr id="top-row" class="shadow-sm" style="text-decoration: none">
+    <th scope="col">#</th>
+    <th scope="col">Organisation name</th>
+    <th scope="col">Amount of employees</th>
+    <th scope="col">Date created</th>
+    <th scope="col">Role</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr id="table-row" *ngFor="let organisation of organisations; let i = index" (click)="onSelect(organisation.id)">
+    <th scope="row">{{ organisation.id }}</th>
+    <td>{{ organisation.name }}</td>
+    <td>69</td>
+    <td>{{ organisation.date | date }}</td>
+    <td>{{organisation.owner === loggedInUser ? 'Administrator' : 'Member'}}</td>
+  </tr>
+  </tbody>
+</table>

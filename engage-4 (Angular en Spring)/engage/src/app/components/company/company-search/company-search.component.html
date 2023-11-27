@@ -1,0 +1,61 @@
+<div class="content">
+  <div class="header text-center">
+    <h1>Search for organisations</h1>
+    <hr>
+  </div>
+  <div class="container">
+    <div class="search">
+      <label>
+        <input type="search" class="form-control"
+               placeholder="&#8981; Start searching for a organisation by name" [(ngModel)]="searchText">
+      </label>
+    </div>
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="customSwitches" (click)="switchView()">
+      <label class="custom-control-label" for="customSwitches">Switch view</label>
+    </div>
+    <hr/>
+    <div class="projects">
+      <div class="row" *ngIf="view === true">
+        <div class="column" *ngFor="let x of companies | projectFilter: searchText">
+          <div class="card">
+            <h4><b>{{x.name}}</b></h4>
+<!--            <img class="img-fluid"  [src]="x.photo" alt="Image could not be loaded">-->
+            <img *ngIf="isFakePath(x.imagePath)" alt="photo" [src]="getCorrectPath(x.imagePath, x)"
+                 class="img-fluid img-responsive mx-auto d-block rounded-circle">
+            <img *ngIf="!isFakePath(x.imagePath)" alt="photo" [src]="x.imagePath"
+                 class="img-fluid img-responsive mx-auto d-block rounded-circle">
+            <hr>
+            <p><b>E-mail:</b></p>
+            {{x.email}}
+            <hr>
+            <p><span><i class="bi bi-globe mr-2"></i></span>{{x.country}}</p>
+            <hr>
+            <button class="btn btn-primary" (click)="onClickToProject(x.id)">To organisation ></button>
+          </div>
+        </div>
+      </div>
+      <div class="div" *ngIf="view === false">
+        <table class="table text-center shadow-sm">
+          <thead class="thead">
+          <tr class="shadow-sm" style="text-decoration: none">
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Country</th>
+            <th scope="col">Email</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="table-row" *ngFor="let company of companies | userPipe: searchText">
+            <th scope="row">{{ company.id }}</th>
+            <td>{{company.name}}</td>
+            <td>{{company.country}}</td>
+            <td>{{company.email}}</td>
+            <td><button  class="btn btn-primary" (click)="onClickToProject(company.id)">Go to organisation</button></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

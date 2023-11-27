@@ -1,0 +1,100 @@
+.navbar {
+  background-color: #292961;
+}
+
+.navbar-brand {
+  position: relative;
+  top: -3px;
+  font-size: 25px;
+}
+
+.active {
+  border-bottom: 3px solid white;
+}
+
+#myProfileDropdown {
+  color: #D2D2DF;
+}
+
+#dashboard-link {
+  color: #D2D2DF;
+}
+
+#home-link {
+  color: #D2D2DF;
+}
+
+#projects-link {
+  color: #D2D2DF;
+}
+
+#login-link {
+  color: #D2D2DF;
+}
+
+#sign-out-link {
+  color: #D2D2DF;
+  cursor: pointer;
+}
+
+#myProfileDropdown:hover {
+  color: white;
+}
+
+#home-link:hover {
+  color: white;
+}
+
+#projects-link:hover {
+  color: white;
+}
+
+#login-link:hover {
+  color: white;
+}
+
+#sign-out-link:hover {
+  color: white;
+}
+
+#dashboard-link:hover {
+  color: white;
+}
+
+#user-link {
+  color: #D2D2DF
+}
+
+#users-link{
+  color: #D2D2DF;
+}
+
+#users-link:hover {
+  color: white;
+  cursor: pointer;
+}
+
+#faq-link {
+  color: #D2D2DF;
+}
+
+#faq-link:hover {
+  color: white;
+  cursor: pointer;
+}
+
+img {
+  width: 50px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.text-muted {
+  color: red !important;
+}
+
+#login-dropdown {
+  width: 300px;
+}

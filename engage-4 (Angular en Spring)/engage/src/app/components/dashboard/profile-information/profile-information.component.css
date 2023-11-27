@@ -1,0 +1,56 @@
+.btn-secondary {
+  width: 100%;
+  background-color: #D8DADF;
+  border: none;
+  color: black;
+  border-radius: 6px;
+  font-size: 18px;
+  transition: box-shadow .3s, background-color .3s;
+}
+
+.btn-secondary:hover {
+  background-color: #C9CACC;
+  box-shadow: 0 0 8px rgba(33,33,33,.2);
+}
+
+.img-fluid {
+  width: 300px;
+  height: 300px;
+}
+
+.container-photo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container-1 {
+  padding: 15px;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.scroll {
+  height: 360px;
+  overflow: auto;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+

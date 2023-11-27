@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>app.repositories.Repository</OriginalElement>
+  <nodes>
+    <node x="0.0" y="169.0">app.repositories.organisation.OrganisationMembersRepositorySql</node>
+    <node x="433.5" y="0.0">app.repositories.Repository</node>
+    <node x="740.0" y="169.0">app.repositories.organisation.organisationsRepositorySql</node>
+    <node x="329.0" y="169.0">app.repositories.organisation.OrganisationRequestRepositorySql</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="app.repositories.organisation.OrganisationMembersRepositorySql" target="app.repositories.Repository">
+      <point x="0.0" y="-71.0" />
+      <point x="154.5" y="144.0" />
+      <point x="463.8333333333333" y="144.0" />
+      <point x="-60.666666666666686" y="59.5" />
+    </edge>
+    <edge source="app.repositories.organisation.OrganisationRequestRepositorySql" target="app.repositories.Repository">
+      <point x="0.0" y="-71.0" />
+      <point x="0.0" y="59.5" />
+    </edge>
+    <edge source="app.repositories.organisation.organisationsRepositorySql" target="app.repositories.Repository">
+      <point x="0.0" y="-71.0" />
+      <point x="849.5" y="144.0" />
+      <point x="585.1666666666666" y="144.0" />
+      <point x="60.66666666666663" y="59.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.9" x="549.2763347763357" y="372.4365079365025" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

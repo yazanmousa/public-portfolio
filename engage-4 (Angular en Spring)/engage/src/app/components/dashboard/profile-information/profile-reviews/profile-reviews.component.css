@@ -1,0 +1,118 @@
+.card {
+  border-radius: 10px;
+}
+.btn-secondary {
+  background-color: #D8DADF;
+  border: none;
+  color: black;
+  border-radius: 6px;
+  font-size: 18px;
+  transition: box-shadow .3s, background-color .3s;
+}
+
+.btn-secondary:hover {
+  background-color: #C9CACC;
+  box-shadow: 0 0 8px rgba(33,33,33,.2);
+}
+
+.card-header {
+  border-radius: 10px;
+  border: none;
+  background-color: white;
+}
+
+.lead {
+  font-size: 28px;
+  font-family: "Noto Sans";
+}
+
+.badge-pill {
+  padding: 6px 10px 6px 10px;
+  transition: transform .7s;
+}
+
+.crimson-hover:hover {
+  border: 1px solid crimson !important;
+  background-color: rgba(255, 0, 0, 0.2) !important;
+  cursor: pointer;
+}
+
+.badge-primary {
+  background-color: #3F51B5;
+}
+
+th {
+  width: 90px;
+  border: none;
+}
+
+td {
+  border: none;
+}
+
+.average {
+  background-color: #3F51B5;
+  color: white;
+  border-radius: 50%;
+  padding: 4px;
+  width: 30px;
+}
+
+.btn-primary {
+  background-color: #3F51B5;
+  border-color: #3F51B5;
+  border-radius: 6px;
+  transition: box-shadow .2s;
+}
+
+.btn-primary:hover {
+
+}
+
+.review-button {
+  transition: transform .2s;
+}
+
+.review-button:hover {
+  transform: scale(1.07);
+}
+
+.btn-primary:focus,.btn-primary:active {
+  outline: none;
+  box-shadow: none;
+}
+
+.list-group-item {
+  border-radius: 10px;
+  margin-bottom: 3px;
+  border: 1px solid lightgrey;
+  box-shadow: 0 0 3px rgba(33,33,33,.2);
+}
+
+a {
+  font-size: 16px;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.bounce {
+  animation: bounce 1.2s;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+
+
+

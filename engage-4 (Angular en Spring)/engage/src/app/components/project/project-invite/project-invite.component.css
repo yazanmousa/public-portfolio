@@ -1,0 +1,47 @@
+.vertical-center {
+  margin: 0 auto;
+}
+
+h2{
+  color: #292961;
+}
+
+input{
+  width: 100% !important;
+}
+
+tr:hover {
+  text-decoration: underline;
+}
+
+.alert{
+  transition: all .5s ease-in-out;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.thead {
+  background-color: grey;
+  color: white;
+}
+
+.img-fluid {
+  width: 300px;
+  height: 300px;
+}
+
+.scroll {
+  height: 360px;
+  overflow: auto;
+}
+
+#backToProject {
+  font-size: 20px;
+  color: grey;
+}
+
+#backToProject:hover {
+  color: grey;
+}

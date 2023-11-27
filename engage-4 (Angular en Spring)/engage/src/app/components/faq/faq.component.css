@@ -1,0 +1,96 @@
+/*!* Style the buttons that are used to open and close the accordion panel *!*/
+/*.accordion {*/
+/*  background-color: #eee;*/
+/*  color: #444;*/
+/*  cursor: pointer;*/
+/*  padding: 18px;*/
+/*  width: 100%;*/
+/*  text-align: left;*/
+/*  border: none;*/
+/*  outline: none;*/
+/*  transition: 0.4s;*/
+/*}*/
+
+/*!* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) *!*/
+/*.active, .accordion:hover {*/
+/*  background-color: #ccc;*/
+/*}*/
+
+/*!* Style the accordion panel. Note: hidden by default *!*/
+/*.panel {*/
+/*  padding: 0 18px;*/
+/*  background-color: white;*/
+/*  display: none;*/
+/*  overflow: hidden;*/
+/*}*/
+
+.headertext{
+  padding-top:50px;
+}
+
+#page-header {
+  background-color: #FCFCFC;
+}
+
+.text-center{
+  padding-top:10px;
+}
+
+h2 {
+  font-size: 25px;
+  font-weight: bold;
+  color: #292961 !important;
+}
+
+.btn-link {
+  text-decoration: none;
+  color: black;
+  border: none;
+}
+
+
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+.card-header:hover {
+  cursor: pointer;
+}
+
+#main-card {
+  min-height: 1000px;
+}
+
+.list-group-item {
+  border: none;
+  border-radius: 0px;
+  border-left: 2px solid lightgray;
+  transition: border-left 0.3s;
+
+}
+
+.list-group-item:hover {
+  cursor: pointer;
+  border-left: 2px solid #292961;
+  text-decoration: none;
+  color: #292961;
+}
+
+.active {
+  border-left: 2px solid #292961;
+  color: #292961;
+  background-color: transparent;
+  font-weight: bold;
+}
+
+a {
+  color: #494949;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.card-header {
+  border-radius: 10px;
+}

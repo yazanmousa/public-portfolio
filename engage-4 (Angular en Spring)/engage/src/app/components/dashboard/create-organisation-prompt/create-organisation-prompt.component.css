@@ -1,0 +1,25 @@
+.btn-primary {
+  border-color: #1068BF;
+  background-color: #1068BF;
+}
+
+.btn-primary:hover {
+  background-color: #0B5298;
+  border-color: #0B5298;
+}
+
+.btn-success {
+  background-color: #217645;
+  border-color: #217645;
+}
+
+.btn-success:hover {
+  background-color: #045326;
+  border-color: #045326;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+

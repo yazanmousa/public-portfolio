@@ -1,0 +1,164 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card mt-4 shadow-sm">
+        <div class="card-header">
+          <h2>Edit your profile</h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="firstName">Firstname:</label>
+                  <input type="text"
+                         class="form-control"
+                         id="firstName"
+                         formControlName="firstName"
+                         placeholder="firstname">
+                  <div *ngIf="!form.get('firstName').valid && form.get('firstName').touched">
+                    <p class="text-muted" *ngIf="form.get('firstName').errors['required']">
+                      Please enter a valid name!
+                    </p>
+
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Lastname:</label>
+                  <input type="text"
+                         class="form-control"
+                         id="lastName"
+                         formControlName="lastName"
+                         placeholder="lastname">
+                  <div *ngIf="!form.get('lastName').valid && form.get('lastName').touched">
+                    <p class="text-muted" *ngIf="form.get('lastName').errors['lastName']">
+                      Please enter a valid name!
+                    </p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Date of birth:</label>
+                  <input type="date"
+                         class="form-control"
+                         id="dateOfBirth"
+                         formControlName="dateOfBirth"
+                         placeholder="Date of Birth">
+                  <div *ngIf="!form.get('dateOfBirth').valid && form.get('dateOfBirth').touched">
+                    <p class="text-muted" *ngIf="form.get('dateOfBirth').errors['dateOfBirth']">
+                      Enter date of Birth!
+                    </p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="country">Country:</label>
+                  <input type="text"
+                         class="form-control"
+                         id="country"
+                         formControlName="country"
+                         placeholder="Country">
+                  <div *ngIf="!form.get('country').valid && form.get('country').touched">
+                    <p class="text-muted" *ngIf="form.get('country').errors['required']">
+                      Please enter a valid country!
+                    </p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="aboutMe">About me:</label>
+                  <textarea type="text"
+                            class="form-control"
+                            id="aboutMe" rows="10"
+                            formControlName="aboutMe"
+                            placeholder="Describe yourself!"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="oldPassword">Old password:</label>
+                  <input type="password"
+                         class="form-control"
+                         id="oldPassword"
+                         formControlName="oldPassword"
+                         placeholder="Old password">
+                </div>
+                <div class="form-group">
+                  <label for="newPassword">New password:</label>
+                  <input type="password"
+                         class="form-control"
+                         id="newPassword"
+                         formControlName="newPassword"
+                         placeholder="New Password">
+                </div>
+                <div class="form-group">
+                  <label for="repeatPassword">Repeat new Password:</label>
+                  <input type="password"
+                         class="form-control"
+                         id="repeatPassword"
+                         formControlName="repeatPassword"
+                         placeholder="Repeat password">
+                </div>
+                <div *ngIf="error">
+                  <p class="text-muted">{{errorText}}</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="email">E-mail:</label>
+                  <input type="email"
+                         class="form-control"
+                         id="email"
+                         formControlName="email"
+                         placeholder="E-mail">
+                  <div *ngIf="!form.get('email').valid && form.get('email').touched">
+                    <p class="text-muted" *ngIf="form.get('email').errors['required']">
+                      Enter an e-mail!
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <label class="form-label" for="photo">Photo:</label>
+                  <input type="file"
+                         class="form-control"
+                         formControlName="photo"
+                         id="photo"
+                         (change)="onFileChanged($event)">
+                </div>
+                <!--                <div formArrayName="attributes" class="mt-2">-->
+                <!--                  <label>Attributes:</label>-->
+                <!--                  <br>-->
+                <!--                  <button class="btn-sm btn-primary mb-2" type="button" (click)="onAddAttribute()">Add Attribute-->
+                <!--                  </button>-->
+                <!--                  <div class="scroll">-->
+                <!--                    <div-->
+                <!--                      class="row mt-2 col-md-10"-->
+                <!--                      *ngFor="let attributes of getControls(); let i = index">-->
+                <!--                      <div class="col-md-2 mt-1">-->
+                <!--                        <p>{{i}}:-->
+                <!--                      </div>-->
+                <!--                      <div class="col-md-6">-->
+                <!--                        <input id="attribute" type="text" class="form-control" [formControlName]="i">-->
+                <!--                      </div>-->
+                <!--                      <div class="col-md-2 mt-1">-->
+                <!--                        <a style="cursor:pointer" (click)="onDeleteAttribute(i)">X</a>-->
+                <!--                      </div>-->
+                <!--                    </div>-->
+                <!--                  </div>-->
+                <!--                </div>-->
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 d-flex justify-content-between">
+                <button type="submit" [disabled]="form.invalid" class="btn btn-dark">Save</button>
+                <a id="delete-button" (click)="onDeleteAccount()" style="color: crimson;">Delete account</a>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="row-mt-2 mb-2">
+          <div class="col-md-12 text-center">
+            <div *ngIf="loading" class="spinner-border ml-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+</div>

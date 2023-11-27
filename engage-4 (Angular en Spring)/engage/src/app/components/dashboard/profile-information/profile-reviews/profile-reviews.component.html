@@ -1,0 +1,171 @@
+<div class="row mt-4">
+  <div class="col-md-12">
+    <div class="card shadow-sm">
+      <div class="card-header ">
+        <h1 class="lead">Reviews</h1>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="text-center">
+              <h2 class="lead">Average: <span style="color: gold"><i class="bi-star-fill mr-1"></i></span>{{totalAverageRating === 0 ? '0' : totalAverageRating | number : '1.1-1' }}</h2>
+            </div>
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-10">
+                <table class="table">
+                  <tbody>
+                  <tr>
+                    <th><span class="ml-2 badge-pill badge-primary"><span><i
+                            class="bi-star-fill mr-2"></i></span>5</span></th>
+                    <td>
+                      <mat-progress-bar class="mt-2" mode="determinate" [value]="(fiveStarCount / totalReviewCount) * 100"></mat-progress-bar>
+                    </td>
+                    <td style="width: 20px">{{fiveStarCount}}</td>
+                  </tr>
+                  <tr>
+                    <th><span class="ml-2 badge-pill badge-primary"><span><i
+                            class="bi-star-fill mr-2"></i></span>4</span></th>
+                    <td>
+                      <mat-progress-bar class="mt-2" mode="determinate" [value]="(fourStarCount / totalReviewCount) * 100"></mat-progress-bar>
+                    </td>
+                    <td>{{fourStarCount}}</td>
+                  </tr>
+                  <tr>
+                    <th><span class="ml-2 badge-pill badge-primary"><span><i
+                            class="bi-star-fill mr-2"></i></span>3</span></th>
+                    <td>
+                      <mat-progress-bar class="mt-2" mode="determinate" [value]="(threeStarCount / totalReviewCount) * 100"></mat-progress-bar>
+                    </td>
+                    <td>{{threeStarCount}}</td>
+                  </tr>
+                  <tr>
+                    <th><span class="ml-2 badge-pill badge-primary"><span><i
+                            class="bi-star-fill mr-2"></i></span>2</span></th>
+                    <td>
+                      <mat-progress-bar class="mt-2" mode="determinate" [value]="(twoStarCount / totalReviewCount) * 100"></mat-progress-bar>
+                    </td>
+                    <td>{{twoStarCount}}</td>
+                  </tr>
+                  <tr>
+                    <th><span class="ml-2 badge-pill badge-primary"><span><i
+                            class="bi-star-fill mr-2"></i></span>1</span></th>
+                    <td>
+                      <mat-progress-bar class="mt-2" mode="determinate" [value]="(oneStarCount / totalReviewCount) * 100"></mat-progress-bar>
+                    </td>
+                    <td>{{oneStarCount}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-1"></div>
+            </div>
+            <hr>
+            <div class="row">
+              <div *ngFor="let userAttribute of ratedAttributes" style="border: 1px solid #3F51B5; background-color: transparent; color: #3F51B5" class="badge-pill badge-primary mr-2 mb-2">
+                <div class="d-flex justify-content-between" style="font-size: 15px;">
+                  <p class="mt-auto mb-auto">{{userAttribute.attribute}}</p>
+                  <div class="average ml-2 text-center">{{userAttribute.average}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="border-radius: 0;  background-color: #F7F7F6;"
+           class="card-header d-flex justify-content-between shadow-sm">
+        <h2 class="lead mt-auto mb-auto">Ratings</h2>
+        <button *ngIf="loggedInUser !== user && !userAlreadyGaveReview(loggedInUser) && userIsPartOfSameProject()" (click)="onClickReview()" class="btn btn-primary review-button"><span><i class=" bi bi-arrow-down mr-2"></i></span>Review this user</button>
+        <button *ngIf="loggedInUser !== user && userAlreadyGaveReview(loggedInUser) && userIsPartOfSameProject()" class="btn btn-primary review-button" data-toggle="modal" data-target="#replaceReviewModal"><span><i class="bi bi-arrow-down mr-2"></i></span>Review this user</button>
+        <p *ngIf="loggedInUser !== user && !userIsPartOfSameProject() && !userAlreadyGaveReview(loggedInUser)" class="text-muted mb-auto mt-auto"><span><i class="bi-exclamation-diamond-fill" style="margin-right: 8pxe">Rating not possible as you are not part of the same project</i></span></p>
+      </div>
+      <div [@showContent] *ngIf="toggle" class="card-body bounce">
+        <div class="list-group-item">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="attribute" class="lead" style="font-size: 18px;">Select attribute to review:</label>
+              <select id="attribute" class="form-control mt-2" [(ngModel)]="selectedAttribute">
+                <option *ngFor="let attribute of attributesEnum">{{attribute}}</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <div class="lead" style="font-size: 18px;">Score:</div>
+              <div style="font-size: 16px;"><span class="mr-1"><ngb-rating id="score" style="font-size: 45px;" [(rate)]="currentRate"></ngb-rating></span>{{currentRate}}/5</div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between mt-2">
+            <button (click)="onClickRateAttribute()" class="btn btn-primary btn-sm">Rate attribute!</button>
+          </div>
+          <div class="row mt-4 ml-1 p-1">
+            <div (click)="onDeleteReview(review)" *ngFor="let review of tempReviewsList" style="border: 1px solid #3F51B5; background-color: transparent; color: #3F51B5" class="badge-pill badge-primary crimson-hover mr-2 mb-2">
+              <div class="d-flex justify-content-between" style="font-size: 15px;">
+                <p class="mt-auto mb-auto">{{getAttributeNameForReview(review)}}</p>
+                <div class="average ml-2 text-center">{{review.rating}}</div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <button [disabled]="tempReviewsList.length < 1" (click)="onSubmitReview()" class="btn btn-dark w-25 ">Submit review</button>
+          <a class="text-muted ml-3" (click)="onClickCancel()">Cancel</a>
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <div *ngIf="loading" style="margin-top: 10px; margin-right: 10px;" class="spinner-border ml-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h5 *ngIf="listOfReviewLists.length < 1" style="opacity: 50%">This user has not been rated before...</h5>
+      </div>
+      <div class="card-body">
+        <div class="list-group">
+          <div *ngFor="let reviewList of listOfReviewLists" class="list-group-item">
+            <div class="row">
+<!--              <div class="col-md-3">-->
+<!--                <img [src]="getReviewerImage(reviewList)" class="img-fluid mt-1"-->
+<!--                     style="height: 135px; border-radius: 50%" alt="No image found">-->
+<!--              </div>-->
+              <div class="col-md-12">
+                <div class="d-flex justify-content-between" style="margin-bottom: 0">
+                  <h5>{{getReviewerName(reviewList)}}</h5>
+                  <p style="color: darkgray; margin-bottom: 0">{{ getReviewTime(reviewList) | date }}</p>
+                </div>
+                <p class="text-muted">Has rated {{reviewList.length}} {{reviewList.length === 1 ? 'attribute' : 'attributes'}}</p>
+                <hr>
+                <div class="row mt-2">
+                  <div *ngFor="let review of reviewList" style="border: 1px solid #3F51B5; background-color: transparent; color: #3F51B5" class="badge-pill badge-primary mr-2 mb-2">
+                    <div class="d-flex justify-content-between" style="font-size: 15px;">
+                      <p class="mt-auto mb-auto">{{review.evaluated.attribute}}</p>
+                      <div class="average ml-2 text-center">{{review.rating}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Pop up that appears when you have already given a review before-->
+<div class="modal fade" id="replaceReviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Warning</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        You have already given a review before. Do you want to replace your old review?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button (click)="onClickReview()" type="button" class="btn btn-primary" data-dismiss="modal">Replace old</button>
+      </div>
+    </div>
+  </div>
+</div>

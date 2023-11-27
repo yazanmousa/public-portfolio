@@ -1,0 +1,126 @@
+<div *ngIf="organisation !== null" class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card mt-4 shadow-sm">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h1 style="font-size: 35px;" class="lead mb-4">{{organisation.name}}</h1>
+              <hr>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 text-center">
+              <div *ngIf="organisation.imagePath != null ">
+                <img *ngIf="[this.organisationService.organisationHasPhoto]" alt="Image could not be loaded"
+                     [src]="organisationService.retrievedImage"
+                     class="img-fluid img-responsive mx-auto d-block rounded-circle mb-2">
+                <img *ngIf="![this.organisationService.organisationHasPhoto]" alt="Image could not be loaded"
+                     src="https://hook.finance/sites/default/files/user.png"
+                     class="img-fluid img-responsive mx-auto d-block rounded-circle mb-2">
+              </div>
+              <p class="mb-2 text-muted"><span><i class="bi bi-mailbox mr-2"></i></span>
+                <b>Email:</b> {{organisation.email}}</p>
+              <p class="mb-2 text-muted"><span><i class="bi bi-calendar mr-2"></i></span><b>Date
+                created:</b> {{organisation.dateCreated | date}}</p>
+              <p class="mb-3 text-muted"><span><i class="bi bi-globe mr-2"></i></span><b>Country:</b> {{organisation.country}}</p>
+            </div>
+            <div class="col-md-6 text-center">
+              <h5>About this organisation</h5>
+              <div class="scroll">
+                <p class="mr-3">{{organisation.description}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isAdministrator() && this.pendingRequests.length >= 1" class="row mt-5 mb-5">
+    <div class="col-md-12">
+      <h5><span class="bi bi-people"></span> Join Requests</h5>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-body">
+            <div class="row">
+              <div class="list-group-item" *ngFor="let pendingRequest of pendingRequests">
+                <div class="row">
+                  <div class="col-md-4">
+                    <img [src]="getPhoto(pendingRequest.sendByUser.imagePath)" alt="Can't be found"
+                         class="img-fluid mt-1"
+                         style="height: 120px; border-radius: 50%">
+                  </div>
+                  <div class="col-md-8 pl-1">
+                    <h5 class="text-center">{{ pendingRequest.sendByUser.firstName }} {{ pendingRequest.sendByUser.lastName }}</h5>
+                    <hr>
+                    <button (click)="onAcceptPendingRequest(pendingRequest)" style="margin-right: 11px;"
+                            class="btn btn-primary mt-3">Accept
+                    </button>
+                    <button (click)="onDeclinePendingRequest(pendingRequest)" class="btn btn-secondary mt-3">Decline
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-6">
+      <h5><span class="bi bi-people"></span> Organisation members ({{members.length}})</h5>
+      <table class="table text-center shadow-sm">
+        <thead class="thead">
+        <tr id="top-row" class="shadow-sm" style="text-decoration: none">
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr (click)="onSelectMember(member)" class="table-row" *ngFor="let member of members">
+          <td>{{member.user.firstName}}</td>
+          <td>{{member.user.lastName}}</td>
+          <td>{{member.administrator === true ? 'Administrator' : 'Member'}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <h5><span class="bi bi-exclamation-circle-fill"></span> Actions</h5>
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <button id="edit-button" *ngIf="isAdministrator()" class="btn btn-primary w-100 mb-1"
+                          (click)="onClickEditProject(organisation.id)">Edit organisation
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <button *ngIf="!userAlreadySentRequest() && !userAlreadyHasOrganisation()"
+                          (click)="onClickJoinOrganisation()" class="btn btn-primary w-100 mb-1">Request to join
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <button *ngIf="userIsPartOfOrganisation() && !isOwner()" (click)="leaveOrganisation()"
+                          class="btn btn-danger w-100 mb-1">Leave organisation
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>

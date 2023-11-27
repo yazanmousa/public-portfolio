@@ -1,0 +1,85 @@
+<nav class="navbar navbar-expand-md navbar-dark navbar-custom sticky-top shadow-sm">
+  <a routerLink="/home"><img src="/assets/img/onion.png" alt="image"></a>
+  <a routerLink="/home" class="navbar-brand" style="color:white">Engage</a>
+  <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li style="" routerLinkActive="active"><a id="home-link" routerLink="/home" class="nav-link">Home</a></li>
+<!--      <li *ngIf="loggedInUser !== null" routerLinkActive="active" class="dropdown">-->
+<!--        <a routerLinkActive="active" class="dropdown-toggle nav-link" id="myProfileDropdown" type="button"-->
+<!--           data-toggle="dropdown"-->
+<!--           aria-haspopup="true" aria-expanded="false">-->
+<!--          Profile-->
+<!--        </a>-->
+<!--        <div class="dropdown-menu" aria-labelledby="myProfileDropdown">-->
+<!--          <a style="cursor: pointer" [routerLink]="['profile-information', this.loggedInUser.id]" class="dropdown-item">My-->
+<!--            information</a>-->
+<!--          <a routerLink="/my-projects-overview" class="dropdown-item" href="#">My projects/organisations</a>-->
+<!--        </div>-->
+<!--      </li>-->
+      <li *ngIf="loggedInUser !== null" routerLinkActive="active"><a [routerLink]="['profile']" id="dashboard-link" class="nav-link">Profile</a></li>
+      <li *ngIf="loggedInUser !== null" routerLinkActive="active"><a routerLink="/search-projects" id="projects-link" class="nav-link">Projects</a></li>
+      <li *ngIf="loggedInUser !== null" routerLinkActive="active"><a routerLink="/search-user" id="users-link" class="nav-link">Stakeholders</a></li>
+      <li routerLinkActive="active"><a routerLink="/faq" id="faq-link" class="nav-link">FAQ</a></li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="dropdown">
+        <a id="login-link" class=" nav-link" type="button" data-toggle="dropdown" aria-haspopup="true"
+           aria-expanded="true">
+          {{ loggedInUser === null ? 'Login' : '' }}
+        </a>
+
+        <!--This is the login LOL-->
+        <div id="login-dropdown" class="dropdown-menu dropdown-menu-right shadow-lg">
+          <form [formGroup]="loginForm" class="px-4 py-3">
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                placeholder="example@example.com">
+              <div *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">
+                <p class="text-muted"
+                   *ngIf="loginForm.get('email').errors['required'] || loginForm.get('email').errors['email']">
+                  Please enter a valid email
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                formControlName="password"
+                placeholder="Password...">
+              <div *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
+                <p class="text-muted" *ngIf="loginForm.get('password').errors['required']">
+                  Please enter a valid password
+                </p>
+              </div>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="dropdownCheck">
+              <label class="form-check-label" for="dropdownCheck">
+                Remember me
+              </label>
+            </div>
+            <button [disabled]="!loginForm.valid" (click)="onSubmit()" data-toggle="dropdown" class="btn btn-dark">
+              Sign in
+            </button>
+          </form>
+          <div class="dropdown-divider"></div>
+          <a (click)="toRegister()" style="cursor: pointer" class="dropdown-item">New around here? Sign up</a>
+        </div>
+        <!--This is where the login ends LOL-->
+      </li>
+      <li *ngIf="loggedInUser !== null"><a (click)="onClickLogout()" id="sign-out-link" class="nav-link">Sign out</a>
+      </li>
+    </ul>
+  </div>
+</nav>

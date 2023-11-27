@@ -1,0 +1,37 @@
+.btn-outline-danger {
+  border: none;
+}
+
+#core {
+  background-color:#FFDB69;
+  font-size: 20px;
+  margin-bottom: 8px;
+  padding: 8px;
+  border: 2px dashed #FFA91F;
+}
+
+#partner {
+  background-color:#FFEEB9;
+  font-size: 20px;
+  margin-bottom: 8px;
+  padding: 8px;
+  border: 2px dashed #FFA91F;
+}
+
+#prospect {
+  background-color:#EBF1DE;
+  font-size: 20px;
+  margin-bottom: 8px;
+  padding: 8px;
+  border: 2px dashed #8BA358;
+}
+
+#influencer {
+  background-color:#FFFFFF;
+  font-size: 20px;
+  padding: 8px;
+  border: 2px dashed #a9a9a9;
+}
+
+
+

@@ -1,0 +1,24 @@
+stages:
+    - deploy
+
+deploy_be:    
+    stage: deploy
+    only:
+        refs:
+            - master
+        changes:
+          - "engageserver/**/*"  
+    script:
+        - git subtree split --prefix engageserver -b splitting-staging-be
+        - git push --force heroku-be-app splitting-staging-be:master
+
+deploy_fe:    
+    stage: deploy
+    only:
+        refs:
+            - master
+        changes:
+          - "engage/**/*"  
+    script:
+        - git subtree split --prefix engage -b splitting-staging-fe
+        - git push --force heroku-fe-app splitting-staging-fe:master

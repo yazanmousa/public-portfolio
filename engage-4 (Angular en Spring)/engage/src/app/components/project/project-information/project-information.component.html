@@ -1,0 +1,157 @@
+<div class="container container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card mt-4 shadow-sm">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h1 style="font-size: 35px;" class="lead mb-4">{{project.name}}</h1>
+              <hr>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 text-center">
+              <img *ngIf="[this.projectsService.projectHasPhoto]" alt="Image could not be loaded" [src]="projectsService.retrievedImage"
+                   class="img-fluid img-responsive mx-auto d-block rounded-circle mb-2">
+              <img *ngIf="![this.projectsService.projectHasPhoto]" alt="Image could not be loaded"
+                   src="https://hook.finance/sites/default/files/user.png"
+                   class="img-fluid img-responsive mx-auto d-block rounded-circle mb-2">
+              <p class="mb-2 text-muted"><span><i class="bi bi-people mr-2"></i></span><b>Required
+                participants:</b> {{project.requiredParticipants}}</p>
+              <p class="mb-2 text-muted"><span><i class="bi bi-calendar mr-2"></i></span><b>Date
+                created:</b> {{project.dateCreated | date}}</p>
+              <p class="mb-3 text-muted"><span><i class="bi bi-globe mr-2"></i></span><b>Country:</b> {{project.country}}</p>
+            </div>
+            <div class="col-md-6 text-center">
+              <h5>About this project</h5>
+              <div class="scroll">
+                <p class="mr-3">{{project.description}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-diagram></app-diagram>
+
+  <!--  <div class="row mt-5" *ngIf="userIsPartOfProject()">-->
+  <!--    <div class="col-md-12">-->
+  <!--      <h5><span class="bi bi-globe"></span> Engaged organisations ({{getEngagedOrganisationCount(projectId)}})</h5>-->
+  <!--      <div class="card shadow-sm">-->
+  <!--        <div class="card-body">-->
+  <!--          <div class="row">-->
+  <!--            <div class="col-md-8">-->
+  <!--              <app-diagram2></app-diagram2>-->
+  <!--            </div>-->
+  <!--            <div class="col-md-4">-->
+  <!--              <p style="font-size: 25px" class="lead">Levels: </p>-->
+  <!--              <div id="core">1: Core</div>-->
+  <!--              <div id="partner">2: Partner</div>-->
+  <!--              <div id="prospect">3: Prospect</div>-->
+  <!--              <div id="influencer">4: Influencer</div>-->
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <div *ngIf="loggedInUser.id === projectOwner.id && pendingRequests.length >= 1" class="row mt-5 mb-5">
+    <div class="col-md-12">
+      <h5><span class="bi bi-people"></span> Join Requests</h5>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-body">
+            <div class="row">
+              <div class="list-group-item" *ngFor="let pendingRequest of pendingRequests">
+                <div class="row">
+                  <div class="col-md-4">
+                    <img [src]="getPhoto(pendingRequest.sendByUser.imagePath)" alt="Can't be found"
+                         class="img-fluid mt-1"
+                         style="height: 135px; border-radius: 50%">
+                  </div>
+                  <div class="col-md-8 pl-1">
+                    <h5>{{ pendingRequest.sendByUser.firstName }} {{ pendingRequest.sendByUser.lastName }}</h5>
+                    <hr>
+                    <button (click)="onAcceptPendingRequest(pendingRequest)" class="btn btn-primary">Accept</button>
+                    <button (click)="onDeclinePendingRequest(pendingRequest)" class="btn btn-secondary">Decline</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-5 mb-5">
+    <div class="col-md-6">
+      <h5><span class="bi bi-people"></span> Project members ({{projectMembers.length}})</h5>
+      <table class="table text-center shadow-sm">
+        <thead class="thead">
+        <tr id="top-row" class="shadow-sm" style="text-decoration: none;">
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr (click)="onSelectProjectMember(projectMember)" class="table-row"
+            *ngFor="let projectMember of projectMembers">
+          <td>{{projectMember.user.firstName}}</td>
+          <td>{{projectMember.user.lastName}}</td>
+          <td>{{projectMember.role.toLowerCase()}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <h5><span class="bi bi-exclamation-circle-fill"></span> Actions</h5>
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <button  *ngIf="isProjectManager(loggedInUser)" class="btn btn-primary w-100" (click)="onClickInvite(project.id)">
+                    Invite members
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <button  *ngIf="isProjectManager(loggedInUser)" class="btn btn-primary w-100 " (click)="onClickEditProject(project.id)">
+                    Edit project
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <button
+                          *ngIf="!userAlreadySentRequest() && loggedInUser !== projectOwner && userHasOrganisation() && !userIsPartOfProject()"
+                          (click)="onClickJoinProject()" class="btn btn-primary w-100">
+                    Request to join
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div *ngIf="userIsPartOfProject() && !isOwner()">
+                    <button (click)="leaveProject()" class="btn btn-danger w-100">Leave project</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-12 text-center">
+              <div *ngIf="leaveLoading" class="spinner-border ml-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

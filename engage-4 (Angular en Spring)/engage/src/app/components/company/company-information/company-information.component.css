@@ -1,0 +1,109 @@
+.img-fluid {
+  width: 300px;
+  height: 300px;
+}
+
+.table {
+  border: 1px solid #E7E7E7;
+}
+
+.thead {
+  background-color: grey;
+  color: white;
+}
+
+.active-item {
+  background-color: #ECECEC;
+  text-decoration: underline;
+}
+
+.table-row {
+  cursor: pointer;
+  background-color: white;
+}
+
+.btn-primary {
+  background-color: #1068BF;
+  width: 45%;
+  margin-top: 10px;
+  transition: box-shadow .3s, background-color .3s;
+  border-radius: 6px;
+}
+
+.btn-primary:hover {
+  background-color: #0D569D;
+  box-shadow: 0 0 8px rgba(33,33,33,.2);
+}
+
+.btn-secondary {
+  width: 48%;
+  background-color: #D8DADF;
+  border: none;
+  color: black;
+  border-radius: 6px;
+  transition: box-shadow .3s, background-color .3s;
+}
+
+.btn-secondary:hover {
+  background-color: #C9CACC;
+  box-shadow: 0 0 8px rgba(33,33,33,.2);
+}
+
+.btn-danger {
+  transition: box-shadow .3s, background-color .3s;
+  border-radius: 6px;
+}
+
+.btn-danger:hover {
+  box-shadow: 0 0 8px rgba(33,33,33,.2);
+}
+
+tr:hover {
+  text-decoration: underline;
+}
+
+#attribute {
+  background-color: #FFCC00;
+  width: 204px;
+  margin-right: 8px;
+  cursor: default;
+}
+
+.scroll {
+  height: 360px;
+  overflow: auto;
+}
+
+.list-group-item {
+  width: 48%;
+  margin: 10px;
+  border: 1px solid lightgray;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.list-group-item {
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+

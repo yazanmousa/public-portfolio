@@ -1,0 +1,61 @@
+.modal-body {
+  background-color: lightgray;
+}
+
+.img-responsive {
+  border-radius: 20px;
+}
+
+label {
+  color: grey;
+}
+
+ul li {
+  color: black;
+}
+
+.btn-primary {
+  background-color: #1068BF;
+}
+
+.text-muted {
+  color: red !important;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.scroll {
+  height: 700px;
+  overflow: auto;
+}
+
+.btn-primary {
+  background-color: #1068BF;
+}
+
+.attributes-formarray {
+  margin-top: 24px;
+}
+
+textarea.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+#delete-button {
+  opacity: 0.8;
+}
+
+#delete-button:hover {
+  text-decoration: underline;
+  opacity: 1;
+  cursor: pointer;
+}
+
+
+

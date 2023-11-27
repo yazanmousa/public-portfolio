@@ -1,0 +1,22 @@
+<h4 *ngIf="!hasMultipleProjects">Project</h4>
+<h4 *ngIf="hasMultipleProjects">Projects</h4>
+<table class="table text-center shadow-sm">
+  <thead class="thead">
+  <tr id="top-row" class="shadow-sm" style="text-decoration: none">
+    <th scope="col">#</th>
+    <th scope="col">Project name</th>
+    <th scope="col">Stakeholders</th>
+    <th scope="col">Date created</th>
+    <th scope="col">Role</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr id="table-row" *ngFor="let project of projects; let i = index" (click)="onSelect(project.id)">
+    <th scope="row">{{ project.id }}</th>
+    <td>{{ project.name }}</td>
+    <td>{{ project.activeStakeholders }}</td>
+    <td>{{ project.dateCreated | date}}</td>
+    <td>{{project.owner === loggedInUser ? 'Administrator' : 'Member'}}</td>
+  </tr>
+  </tbody>
+</table>

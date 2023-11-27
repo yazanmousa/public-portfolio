@@ -1,0 +1,184 @@
+.text-muted {
+  color: red !important;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+select.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.scroll {
+  height: 250px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.btn-primary {
+  background-color: #1068BF;
+}
+
+.btn-primary:hover {
+  background-color: #005AB3;
+}
+
+.attributes-formarray {
+  margin-top: 24px;
+}
+
+textarea.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.btn-outline-danger {
+  border: none;
+}
+
+.btn-success {
+  background-color: #217645;
+}
+
+.btn-success:hover {
+  background-color: #045326;
+  border-color: #045326;
+}
+
+.btn-info {
+  background-color: #292961;
+  border-color: #292961;
+}
+
+.active {
+  background-color: #F1F8FF;
+  border-color: #0366D6 !important;
+  text-decoration: none;
+  color: black;
+  border-left: 7px solid #0366D6 !important;
+}
+
+.active:hover {
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+
+#scrollExistingOrganisations {
+  height: 390px;
+}
+
+.btn-dark {
+  transition: box-shadow .3s;
+}
+
+.btn-dark:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
+
+input {
+  transition: box-shadow .3s;
+}
+
+input:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
+
+textarea {
+  transition: box-shadow .3s;
+}
+
+textarea:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.card-header {
+  border-radius: 10px;
+}
+
+.list-group-item {
+  cursor: pointer;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  transition: border-left .2s;
+  margin-bottom: 2px;
+}
+
+.list-group-item:hover {
+  border-left: 7px solid #0366D6;
+}
+
+.btn-secondary {
+  background-color: #D8DADF;
+  border: none;
+  color: black;
+  border-radius: 6px;
+  transition: box-shadow .3s, background-color .3s;
+}
+
+.btn-secondary:hover {
+  background-color: #C9CACC;
+  box-shadow: 0 0 8px rgba(33,33,33,.2);
+}
+
+.btn-secondary:active {
+  background-color: #C9CACC !important;
+  color: black !important;
+}
+
+.toDelete {
+  border: 1px solid crimson;
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+#engaged-organisation:hover {
+  border: 1px solid crimson;
+  background-color: rgba(255, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+#engaged-organisation:active {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+#engaged-organisation {
+  transition: background-color .2s;
+}
+
+#delete-project {
+  color: crimson;
+  opacity: 0.8;
+}
+
+#delete-project:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
