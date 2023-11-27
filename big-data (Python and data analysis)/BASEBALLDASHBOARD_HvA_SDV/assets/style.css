@@ -1,0 +1,647 @@
+/* nieuw Koen nieuw */
+.bar-graphs {
+    display: flex;
+}
+
+.container-stat-dropdown-css {
+    display: flex;
+}
+
+.stat-dropdown-p2 {
+    margin-left: 1140px;
+}
+
+.stat-dropdown {
+    width: 200px;
+}
+
+.stat-dropdown-p1 {
+    width: 200px;
+}
+
+.stat-dropdown-p1 {
+    width: 200px;
+}
+
+.bargraph-p2 {
+    margin-left: 100px;
+}
+
+.title-hbars {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+/* Algemene pagina dingen */
+#title {
+    Float: left;
+    color: rgb(238, 238, 238);
+    padding-top: 8px;
+    padding-left: 10px;
+    
+}
+
+header {
+    background-color: rgb(87, 144, 177);
+    border: 2px solid black;
+    border-radius: 10px;
+    height: 75px;
+}
+
+#react-entry-point {
+    max-width: 1600px;
+    margin: 40px auto;
+    background-color: #f0eded;
+    border-radius: 10px;
+    padding: 30px;
+    min-height: 1600px;
+    -webkit-box-shadow: 4px 4px 74px -15px rgba(0,0,0,0.58);
+}
+
+body {
+    background-image: url('/assets/baseballfield.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: none;
+}
+
+/* 'Select a player!' melding */
+#choose-player {
+    margin-top: 100px;
+    margin-left: 550px;
+    font-size: 50px;
+}
+
+.dash-dropdown {
+    max-width: 300px;
+}
+
+#player-selection {
+    padding: 20px;
+    margin-top: 80px;
+}
+
+#dropdown-player1 {
+    padding-bottom: 20px;
+}
+
+/* !!Home!! */
+.home-titel {
+    width: 600px;
+    margin-top: 110px;
+    margin-left: 230px;
+    text-align: center;
+}
+
+.home-tekst {
+    margin-top: 100px;
+}
+
+.home-blokken {
+    margin-top: -20px;
+}
+
+.youtube-video {
+    margin-top: 20px;
+    margin-left: 120px;
+}
+
+/* !!Compare Tab2 Dropdowns!! */
+.dropdown-years-leagues-css {
+    display: flex;
+}
+
+.stats-selector{
+    margin-left: 600px;
+    width: 300px
+}
+
+/* Player 1 */
+.player1-dropdowns {
+    width: 200px;
+    position: absolute;
+}
+
+.dropdown-years1 {
+    width: 100px;
+}
+
+.dropdown-leagues1 {
+    width: 100px;
+}
+
+/* Player 2 */
+.player2-dropdowns {
+    width: 200px;
+    margin-left: 1335px;
+    position: absolute;
+}
+
+.dropdown-years2 {
+    width: 100px;
+}
+
+.dropdown-leagues2 {
+    width: 100px;
+}
+
+/* Bar grafiek */
+.comparison-bar-graphs-css {
+    text-align: center;
+    margin-top: 120px;
+}
+
+#player-names {
+    display: flex;
+}
+
+.player-name-title {
+    width: 100%;
+}
+
+#player-title-1-tab1 {
+    text-align: left;
+    padding: 20px 50px
+}
+
+#player-title-1-tab2 {
+    text-align: left;
+    padding: 20px 50px
+}
+
+#player-title-2-tab1 {
+    text-align: right;
+    padding: 20px 50px
+}
+
+#player-title-2-tab2 {
+    text-align: right;
+    padding: 20px 50px
+}
+
+.statdiv-top {
+    margin-top: 50px;
+    display: flex;
+    border-top: 2px solid rgb(134, 134, 134);
+    border-bottom: 1px solid rgb(133, 133, 133);
+}
+
+.statdiv {
+    display: flex;
+    border-top: 1px solid rgb(134, 134, 134);
+    border-bottom: 1px solid rgb(136, 136, 136);
+}
+
+.stat-item {
+    width: 100%;
+    /* border-top: 1px solid rgb(145, 145, 145);
+    border-bottom: 1px solid rgb(148, 147, 147); */
+    font-size: 25px;
+    font-weight: bold;
+    padding-top: 10px;
+    /* padding: 0 10px; */
+}
+
+.stat-item-graph {
+    width: 100%;
+    font-size: 25px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    /* padding: 0 10px; */
+}
+
+/* !!Single player page!! */
+.custom-tabs-container {
+    margin-top: 30px;
+}
+
+/* Player stats */
+.player-stats-css {
+    margin-top: 20px;
+}
+
+.overview-stats-css {
+    margin-top: 20px;
+}
+
+.player-selection-league {
+    display: block;
+    width: 200px;
+    margin-left: 15px;
+}
+
+.player-selection-league-dropdown {
+    display: inline-block;
+    width: 200px;
+    margin-left: 15px;
+}
+
+.player-dropdown-css {
+    display: inline;
+}
+
+
+/* Overview table */
+.overview-table {
+    font-size: 16px !important;
+}
+
+.overview-table td {
+  line-height: 14px;
+  cursor: default;
+  text-align: right;
+}
+
+.overview-table th {
+  line-height: 14px;
+  cursor: default;
+  text-align: center;
+  color: black;
+  font-weight: 500;
+  background-color: rgb(200, 200, 200);
+  border: solid 1px rgb(180, 180, 180);
+}
+
+.overview-table tr:nth-of-type(even) {
+  background-color: rgb(240, 240, 240);
+}
+
+.overview-table td {
+  border: solid 1px rgb(220, 220, 220);
+}
+
+.overview-table td:nth-child(1) {
+  color: rgb(100, 100, 100);
+}
+
+.overview-table td:nth-child(2),
+.overview-table th:nth-child(2),
+.overview-table td:nth-child(3),
+.overview-table th:nth-child(3),
+.overview-table td:nth-child(5),
+.overview-table th:nth-child(5),
+.overview-table .pitching td:nth-child(6),
+.overview-table .pitching th:nth-child(6),
+.overview-table .pitching td:nth-child(15),
+.overview-table .pitching th:nth-child(15) {
+  text-align: left;
+}
+
+.overview-table td {
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+.overview-table td,
+.overview-table th {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.fielding-overview {
+    width: 685px;
+    margin-bottom: 50px;
+}
+.batting-overview {
+    width: 1000px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.pitching-overview {
+    width: 1000px;
+}
+
+
+/* !!Attribute!! */
+
+/* Labels */
+.label-attribute {
+    margin-top: 20px;
+    margin-left: 40px;
+}
+
+/* Dropdowns */
+.dropdown-attribute {
+    margin-left: 40px;
+    margin-top: -8px;
+}
+
+.dropdown-attribute2 {
+    margin-left: 10px;
+    margin-top: 30px;
+    width: 70px;
+    border-color: gray;
+    text-align: center;
+}
+
+.dropdown-attribute-year {
+    margin-left: 40px;
+    width: 260px;
+}
+
+.dropdown-attribute-league {
+    margin-top: -36px;
+    margin-left: 170px;
+    width: 130px;
+}
+
+/* Tabel */
+.player-table-css {
+    margin-top: 35px;
+    text-align: left;
+}
+
+/* Extra info */
+.attribute-tab-css {
+    margin-top: 30px;
+}
+
+.attribute-info{
+    margin-top: 20px;
+    float: right;
+
+}
+
+.attribute-info-button {
+    font-size: 15px;
+    width: 200px;
+}
+
+.attribute-info-text {
+    margin-left: -200px;
+    font-size: 13px;
+    width: 400px;
+}
+
+
+/* !!Team Selection!! */
+.team-selection-tabs {
+    margin-top: 120px;
+    margin-left: -285px;
+    width: 1540px;
+}
+
+
+.filter-info{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    margin-right: -300px;
+
+}
+
+
+.filter-info-button {
+    font-size: 15px;
+    margin-bottom: 40px;
+    margin-right: -250px;
+    margin-top: -150px;
+    float: right;
+    width: 200px;
+    background-color: #2a9d8f;
+}
+
+.filter-info-text {
+    margin-left: -200px;
+    font-size: 13px;
+    width: 400px;
+}
+
+/* Tab 1 */
+
+.export{
+    margin-left: -260px;
+    margin-bottom: 20px;
+    font: sans-serif;
+    background-color: #2a9d8f;
+    color: #ffffff;
+    border-radius: 5px;
+    border-color: #2a9d8f
+}
+
+.team-batting-table {
+    margin-top: 20px;
+    margin-left: -260px;
+    width: 1500px;
+    height: 800px;
+}
+
+.team-pitching-table2 {
+    margin-top: 20px;
+    margin-left: -260px;
+    width: 1500px;
+    height: 800px;
+}
+
+.team-pitching-table {
+    margin-top: 20px;
+    margin-left: -260px;
+    width: 1500px;
+    height: 800px;
+}
+
+.team-batting-title {
+    margin-top: 40px;
+    margin-left: -200px;
+}
+
+.team-batting-text {
+    margin-top: 10px;
+    margin-left: -200px;
+    width: 600px;
+}
+
+.team-pitching-title {
+    margin-top: 40px;
+    margin-left: -200px;
+}
+
+.team-pitching-text {
+    margin-left: -200px;
+    width: 600px;
+}
+
+/* Tab 2 + 3 */
+.pitchingbatting-title {
+    margin-top: 30px;
+    margin-left: -250px;
+}
+
+.pitchbatting-text {
+    margin-left: -250px;
+    margin-bottom: 20px;
+}
+
+.team-batting-dropdown {
+    margin-top: 20px;
+    margin-left: -250px;
+}
+
+.team-pitching-dropdown {
+    margin-top: 20px;
+    margin-left: -250px;
+}
+
+.team-batting-operator {
+    margin-top: 10px;
+    margin-left: -250px;
+    width: 1000px;
+}
+
+.team-batting-table2 {
+    margin-top: 50px;
+    margin-left: -260px;
+    width: 1500px;
+    height: 800px;
+}
+
+/* Extra info */
+/* .attribute-info2 {
+    margin-top: -100px;
+    margin-left: 1050px;
+} */
+
+/* !!Data Table!! */
+.data-table {
+    margin-top: 20px;
+}
+
+.data-table-titel {
+    text-align: center;
+}
+
+.data-table-knoppen {
+    width: 210px;
+    display: inline-block;
+    margin-right: 20px;
+    padding-bottom: 20px;
+}
+
+.data-table-button {
+    width: 150px;
+    display: inline-block;
+    margin-top: 20px;
+    margin-right: 20px;
+    background-color: rgb(223, 223, 223);
+}
+
+.tabel-buiten {
+    border: 1px solid black;
+}
+
+.tabel-binnen {
+    border: 1px solid black;
+    text-align: center;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+
+/* !!navigatiebar indeling!! */
+nav {
+    float: right;
+    padding-left: 10px;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav li {
+    display: inline-block;
+    margin-right: 5px;
+    margin-top: 0px;
+    padding-top: 20px;
+    position: relative;
+    width: 100px;
+    text-align: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: rgb(226, 226, 226);
+    font-size: 21px;
+}
+
+nav a:hover {
+    color: rgb(42, 45, 80);
+}
+
+nav a::before {
+    content: '';
+    display: block;
+    height: 4px;
+    margin-top: 12px;
+    background-color: rgb(235, 235, 235);
+    position: absolute;
+    top: 0;
+    width: 0%;
+    transition: ease-in-out 200ms;
+}
+
+nav a:hover::before {
+    width: 100%;
+}
+
+/* Player selecteren in Compare */
+#player-selection {
+    display: flex;
+}
+
+.player-select-item {
+    padding: 10px 20px;
+    width: 20%;
+}
+
+.player-select-item a {
+    text-align: left;
+}
+
+.player1-years {
+    width: 10px;
+}
+
+/* Tab 2 graph Compare */
+.compare-button-css {
+    width: 150px;
+    display: inline-block;
+    margin-top: 22px;
+    margin-right: 20px;
+    /* background-color: rgb(221, 221, 221); */
+}
+
+.stat-graph-right {
+    border-left: 1px solid rgb(134, 134, 134);
+}
+
+.stat-graph-left {
+    border-right: 1px solid rgb(134, 134, 134);
+}
+
+.stat-item-mid {
+    width: 100%;
+    font-size: 25px;
+    font-weight: bold;
+    padding-top: 10px;
+    background-color: #e2dede;
+}
+
+/* !!Helppage!! */
+.helptitle {
+    margin-top: 30px;
+    margin-left: 350px;
+}
+
+.helpdesc {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.help-blokken {
+    margin-top: 75px;
+}
+
+.contactdesc {
+    margin-top: 300px;
+    margin-left: -220px;
+}

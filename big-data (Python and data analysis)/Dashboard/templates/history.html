@@ -1,0 +1,274 @@
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+
+        <!-- CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+        <link rel="icon" type="image/x-icon" href="/static/assets/sdvlogo.png">
+
+        <!-- Javascript -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+
+    <body>
+        <!-- START Menu -->
+        <header class="p-3 mb-3 border-bottom">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                        <img id='menuLogo' src="{{ url_for('static', filename='assets/sdvlogo.png') }}" alt="logo">
+                    </a>
+
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        {% for item in menuItems %}
+                        <li>
+                            <a href="{{ item[1] }}"
+                                class="nav-link px-2 link-{{'active' if ('/'+currentUrl.split('/')[3] == item[1]) else 'dark' }}">
+                                {{ item[0] }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <!-- END Menu -->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-3">
+                    <select class="form-select typeSelect">
+                        <option value="" disabled selected>Kies een type</option>
+                        <option value="batting">Batting</option>
+                        <option value="pitching">Pitching</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <select disabled class="form-select positionSelect">
+                        <option value="" disabled selected>Kies een statstiek</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <select disabled multiple class="mul-select form-select playersSelect" data-mdb-filter="true">
+                    </select>
+                </div>
+                <div class="col-3">
+                    <button type="button" class="btn btn-primary startCompare w-100">Vergelijk</button>
+                </div>
+            </div>
+        </div>
+        <center>
+            <canvas id="chart" style="display: block; box-sizing: border-box; height: 490px; width: 1200px;"
+                width="1200" height="490"></canvas>
+        </center>
+        <script>
+            (function () {
+                $(".mul-select").select2({
+                    placeholder: "Selecteer spelers",
+                    tags: true,
+                    tokenSeparators: ['/', ',', ';', " "]
+                });
+
+                $('.typeSelect').on('change', function () {
+                    $('.positionSelect option:not(:first)').remove();
+                    $('.playersSelect option:not(:first)').remove();
+
+                    $.ajax({
+                        url: "/get_positions/" + $('.typeSelect').val(),
+                    }).done(function (data) {
+                        data = JSON.parse(data);
+
+                        $.each(data, function (key, position) {
+                            $('.positionSelect').append('<option value="' + position + '">' + position + '</option>')
+                        })
+
+                    });
+
+                    $('.positionSelect').prop("disabled", false)
+                })
+
+                $('.positionSelect').on('change', function () {
+                    $('.playersSelect option:not(:first)').remove();
+
+                    $.ajax({
+                        url: "/get_players/" + $('.typeSelect').val() + '/' + $('.positionSelect').val(),
+                    }).done(function (data) {
+                        data = JSON.parse(data);
+
+                        playerIds = data['id'];
+                        playerNames = data['fullname'];
+
+                        for (const i in playerIds) {
+                            $('.playersSelect').append('<option value="' + playerIds[i] + '">' + playerNames[i] + '</option>')
+                        }
+                    });
+
+                    $('.playersSelect').prop("disabled", false);
+                })
+
+                $('.startCompare').on('click', function () {
+                    valid = true;
+
+                    if ($('.typeSelect').val() == null) {
+                        $('.typeSelect').css('border-color', 'red')
+                        valid = false
+                    } else {
+                        $('.typeSelect').css('border-color', 'unset')
+                    }
+
+                    if ($('.positionSelect').val() == null) {
+                        $('.positionSelect').css('border-color', 'red')
+                        valid = false
+                    } else {
+                        $('.positionSelect').css('border-color', 'unset')
+                    }
+
+                    if ($('.playersSelect').val().length < 1) {
+                        $('.playersSelect').css('border-color', 'red')
+                        valid = false
+                    } else {
+                        $('.playersSelect').css('border-color', 'unset')
+                    }
+
+                    if (!valid) return
+
+                    // create graph
+                    $.ajax({
+                        url: '/history/' + $('.typeSelect').val() + '/' + $('.positionSelect').val() + '/' + $('.playersSelect').val()
+                    }).done(function (data) {
+                        data = JSON.parse(data);
+                        chartData = []
+
+                        var chart = Chart.getChart("chart")
+                        if (chart != undefined) {
+                            chart.destroy();
+                        }
+
+                        var dataset = []
+                        var start_year = new Date().getFullYear();
+
+                        globalLabel = []
+                        for (var j = start_year - 10; j < start_year; j++) {
+                            globalLabel.push(j);
+                        }
+
+                        for (const i in data) {
+                            values = []
+
+                            for (var j = start_year - 10; j < start_year; j++) {
+                                found = false
+                                for (const [key, year] of Object.entries(data[i].years)) {
+                                    if (year == j) {
+                                        found = true
+                                        values.push(data[i].scores[key])
+                                    }
+                                }
+
+                                if (!found) {
+                                    values.push(0);
+                                }
+                            }
+
+                            dataset.push({
+                                label: i,
+                                data: values,
+                                fill: false,
+                                borderColor: 'rgb(' + Math.floor(Math.random() * 255) + ', ' + Math.floor(Math.random() * 255) + ', ' + Math.floor(Math.random() * 255) + ')',
+                                tension: 0.3
+                            })
+                        }
+
+                        //animation
+                        const totalDuration = 150;
+                        const delayBetweenPoints = totalDuration / dataset.length;
+                        const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
+                        const animation = {
+                            x: {
+                                // type: 'number',
+                                easing: 'linear',
+                                duration: delayBetweenPoints,
+                                from: NaN, // the point is initially skipped
+                                delay(ctx) {
+                                    if (ctx.type !== 'data' || ctx.xStarted) {
+                                        return 0;
+                                    }
+
+                                    ctx.xStarted = true;
+                                    return ctx.index * delayBetweenPoints;
+                                }
+                            },
+                            y: {
+                                type: 'number',
+                                easing: 'linear',
+                                duration: delayBetweenPoints,
+                                from: previousY,
+                                delay(ctx) {
+                                    if (ctx.type !== 'data' || ctx.yStarted) {
+                                        return 0;
+                                    }
+
+                                    ctx.yStarted = true;
+                                    return ctx.index * delayBetweenPoints;
+                                }
+                            }
+                        };
+                        // end animation
+
+                        var ctx = document.getElementById('chart').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: globalLabel,
+                                datasets: dataset,
+                                borderWidth: 1,
+                                radius: 0,
+
+                            },
+                            options: {
+                                responsive: false,
+                                animation,
+                                interaction: {
+                                    intersect: false
+                                },
+                                plugins: {
+                                    legend: false,
+                                    title: {
+                                        display: true,
+                                        text: 'Spelers voortgang'
+                                    }
+                                },
+                                scales: {
+                                    x: {
+                                        title: {
+                                            display: true,
+                                            text: "Jaren"
+                                        }
+                                    },
+                                    y: {
+                                        title: {
+                                            display: true,
+                                            text: $('.positionSelect').val()
+                                        }
+                                    }
+                                }
+                            }
+                        })
+                    });
+                })
+            })();
+        </script>
+    </body>
+
+</html>

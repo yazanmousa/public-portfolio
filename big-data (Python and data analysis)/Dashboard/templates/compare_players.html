@@ -1,0 +1,304 @@
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+        
+        <!-- CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+        <link rel="icon" type="image/x-icon" href="/static/assets/sdvlogo.png">
+        
+        <!-- Javascript -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+        </head>
+
+    <body>
+        <!-- START Menu -->
+        <header class="p-3 mb-3 border-bottom">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                        <img id='menuLogo' src="{{ url_for('static', filename='assets/sdvlogo.png') }}" alt="logo">
+                    </a>
+        
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        {% for item in menuItems %}
+                        <li>
+                            <a href="{{ item[1] }}" class="nav-link px-2 link-{{'active' if ('/'+currentUrl.split('/')[3] == item[1]) else 'dark' }}">
+                                {{ item[0] }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <!-- END Menu -->
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-3">
+                    <select class="form-select typeSelect">
+                        <option value="" disabled selected>Kies een type</option>
+                        <option value="batting">Batting</option>
+                        <option value="pitching">Pitching</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <select disabled class="form-select positionSelect">
+                        <option value="" disabled selected>Kies een statistiek</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <select disabled multiple class="mul-select form-select playersSelect" data-mdb-filter="true">
+                    </select>
+                </div>
+                <div class="col-3">
+                    <button type="button" class="btn btn-primary startCompare w-100">Vergelijk</button>
+                </div>
+            </div>
+
+            <canvas id="chart" width="500" height="500"></canvas>
+            <div id="container" class="row mt-5">
+                <div id="pieContainer0" class="col-3">
+                    <canvas class="d-inline-block mx-4" id="pie0"></canvas>
+                </div>
+            </div>
+
+            <table id="info_table" class="d-none">
+                <thead id="stats_tablehead">
+                    <tr>
+                        <th>Naam speler</th>
+                        <th>Speler positie</th>
+                        <th>Waarde</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+            
+                </tbody>
+            </table>
+        </div>
+
+        <script>
+            (function() {
+                var originalPieContainer = $("#container").html();
+
+                $(".mul-select").select2({
+                    placeholder: "Selecteer spelers",
+                    tags: true,
+                    tokenSeparators: ['/', ',', ';', " "]
+                });
+
+                $('.typeSelect').on('change', function () {
+                    $('.positionSelect option:not(:first)').remove();
+                    $('.playersSelect option:not(:first)').remove();
+                    
+                    $.ajax({
+                        url: "/get_positions/" + $('.typeSelect').val(),
+                    }).done(function(data) {
+                        data = JSON.parse(data);
+
+                        $.each(data, function (key, position) {
+                            $('.positionSelect').append('<option value="' + position + '">' + position + '</option>')
+                        })
+
+                    });
+
+                    $('.positionSelect').prop("disabled", false)
+                })
+
+                $('.positionSelect').on('change', function () {
+                    $('.playersSelect option:not(:first)').remove();
+                    
+                    $.ajax({
+                        url: "/get_players/" + $('.typeSelect').val() + '/' + $('.positionSelect').val(),
+                    }).done(function(data) {
+                        data = JSON.parse(data);
+                        
+                        playerIds = data['id'];
+                        playerNames = data['fullname'];
+
+                        for (const i in playerIds) {
+                            $('.playersSelect').append('<option value="' + playerIds[i] + '">' + playerNames[i] + '</option>')
+                        }
+                    });
+
+                    $('.playersSelect').prop("disabled", false);
+                })
+
+                $('.startCompare').on('click', function () {
+                    $('#info_table').removeClass("d-none")
+                    valid = true;
+
+                    if ($('.typeSelect').val() == null) {
+                        $('.typeSelect').css('border-color', 'red')
+                        valid = false
+                    } else {
+                        $('.typeSelect').css('border-color', 'unset')
+                    }
+
+                    if ($('.positionSelect').val() == null) {
+                        $('.positionSelect').css('border-color', 'red')
+                        valid = false
+                    } else {
+                        $('.positionSelect').css('border-color', 'unset')
+                    }
+
+                    if ($('.playersSelect').val().length < 1) {
+                        $('.playersSelect').css('border-color', 'red')
+                        valid = false
+                    } else {
+                        $('.playersSelect').css('border-color', 'unset')
+                    }
+
+                    if (!valid) return
+
+                    // create graph
+                    $.ajax({
+                        url: "/compare_players/" + $('.typeSelect').val() + "/" + $('.positionSelect').val() + "/" + $('.playersSelect').val(),
+                    }).done(function(data) {
+                        data = JSON.parse(data);
+
+                        names = $.map(data['fullname'], function (value, index) {
+                            return [value]
+                        });
+                        scores = $.map(data['score'], function (value, index) {
+                            return [value]
+                        });
+
+                        var chart = Chart.getChart("chart")
+                        if (chart != undefined) {
+                            chart.destroy();
+                        }
+
+                        var ctx = document.getElementById('chart').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: names,
+                                datasets: [
+                                    {
+                                        label: $('.typeSelect').val(),
+                                        data: scores,
+                                        fill: false,
+                                        borderColor: 'rgb(75, 192, 192)',
+                                        lineTension: 0.1,
+                                    }
+                                ]
+                            },
+                            options: {
+                                indexAxis: 'y',
+                                elements: {
+                                    bar: {
+                                        borderWidth: 2,
+                                    }
+                                },
+                                responsive: false,
+                                plugins: {
+                                    legend: {
+                                        position: 'right',
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: $('.positionSelect').val()
+                                    }
+                                }
+                            }
+                        })
+
+
+                        positions = [...document.querySelector(".positionSelect").options].map(opt => opt.value)
+                        positions.shift()
+                        positionString = positions.join(',')
+
+                        $.ajax({
+                            url: "/players_stats/" + $('.typeSelect').val() + "/" + positionString + '/' + $('.playersSelect').val(),
+                        }).done(function (data) {
+
+                            data = JSON.parse(data);
+
+                            var chart = Chart.getChart("pie0")
+                            if (chart != undefined) {
+                                $("#container").html(originalPieContainer);
+                            }
+
+                            for (const [i, value] of positions.entries()) {
+                                if (i > 0) {
+                                    let ctx = document.querySelector('#pieContainer0').cloneNode(true);
+                                    ctx.setAttribute('id', 'pieContainer' + i);
+                                    ctx.firstElementChild.setAttribute('id', 'pie' + i);
+                                    document.querySelector('#container').appendChild(ctx);
+                                    ctx = ctx.firstChild;
+                                }
+
+                                var ctx = document.getElementById('pie' + i);
+                                ctx = ctx.getContext('2d')
+
+                                new Chart(ctx, {
+                                    type: 'pie',
+                                    data: {
+                                        labels: Object.values(data['fullname']),
+                                        datasets: [
+                                            {
+                                                label: $('.typeSelect').val(),
+                                                data: Object.values(data[value]),
+                                                fill: false,
+                                                backgroundColor: ["blue", "purple", "yellow", "orange", "cyan", "brown", "grey", "black", "lime"],
+                                                lineTension: 0.1,
+                                            }
+                                        ]
+                                    },
+                                    options: {
+                                        maintainAspectRatio: false,
+                                        indexAxis: 'y',
+                                        elements: {
+                                            bar: {
+                                                borderWidth: 2,
+                                            }
+                                        },
+                                        responsive: true,
+                                        plugins: {
+                                            legend: {
+                                                position: 'right',
+                                            },
+                                            title: {
+                                                display: true,
+                                                text: value,
+                                            }
+                                        }
+                                    }
+                                })
+                            }
+                        })
+
+                        var stat = $('.positionSelect').val();
+                        var table = []
+
+                        for (var i in names) {
+                            table.push([String(names[i]), String(stat), String(scores[i])])
+                        }
+
+                        if ($.fn.dataTable.isDataTable('#info_table')) {
+                            $('#info_table').DataTable().destroy();
+                        }
+
+                        $("#info_table").DataTable({
+                            data: table,
+                            responsive: true,
+                            destroy: true
+                        });
+                    });
+                })
+            })();
+        </script>
+    </body>
+
+</html>
