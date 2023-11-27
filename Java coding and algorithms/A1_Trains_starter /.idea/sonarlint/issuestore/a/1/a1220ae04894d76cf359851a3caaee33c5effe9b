@@ -1,0 +1,30 @@
+
+n
+java:S1192"XDefine a constant instead of duplicating this literal "Total number of seats: " 3 times.(Ä´‚Ü
+0
+java:S1220""Move this file to a named package.
+E	java:S106
+"+Replace this use of System.out by a logger.(òñ‚€úÿÿÿÿ
+D
+java:S1905")Remove this unnecessary cast to "Object".(Á¨˜üÿÿÿÿ
+D
+java:S1905")Remove this unnecessary cast to "Object".(Œ£üĞüÿÿÿÿ
+D
+java:S1905")Remove this unnecessary cast to "Object".(ÎæÓÿÿÿÿÿÿ
+D
+java:S1905")Remove this unnecessary cast to "Object".(ßÓâûÿÿÿÿ
+D
+java:S1905")Remove this unnecessary cast to "Object".(Ø„¯ıÿÿÿÿ
+D
+java:S1905")Remove this unnecessary cast to "Object".(¨¹Ìéüÿÿÿÿ
+D
+java:S1905")Remove this unnecessary cast to "Object".(Ğ·¢îşÿÿÿÿ
+@	java:S106"+Replace this use of System.out by a logger.(ÿú¹Ñ
+@	java:S106"+Replace this use of System.out by a logger.(Ä´‚Ü
+@	java:S106"+Replace this use of System.out by a logger.(ÒŒÑü
+D
+java:S1905 ")Remove this unnecessary cast to "Object".(Ù†Ü§øÿÿÿÿ
+@	java:S106&"+Replace this use of System.out by a logger.(ÿú¹Ñ
+@	java:S106'"+Replace this use of System.out by a logger.(Ä´‚Ü
+@	java:S106("+Replace this use of System.out by a logger.(İ›…­
+E	java:S106)"+Replace this use of System.out by a logger.(º¯Æ¥üÿÿÿÿ
